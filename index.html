@@ -10,7 +10,11 @@
   <div class="app-shell">
     <header class="topbar">
       <button class="brand" id="homeBtn" type="button" aria-label="시작 화면으로"><span class="brand-mark">◈</span><span>WAFER RUNNER</span></button>
-      <div class="hud"><span id="stageCount"></span><span class="score-chip">SCORE <b id="score">0</b></span></div>
+      <div class="hud">
+        <span id="stageCount"></span>
+        <span class="score-chip">SCORE <b id="score">0</b></span>
+        <button class="nav-toggle hidden" id="navBtn" type="button" aria-label="공정 이동 메뉴" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
     </header>
 
     <main id="app">
@@ -110,6 +114,17 @@
         <button id="restartBtn" class="primary-btn">처음부터 다시 <span>↻</span></button>
       </section>
     </main>
+  </div>
+
+  <div class="nav-drawer hidden" id="navDrawer">
+    <nav class="nav-panel" aria-label="공정 이동">
+      <div class="nav-head">
+        <span>공정 이동</span>
+        <button class="nav-x" id="navClose" type="button" aria-label="메뉴 닫기">✕</button>
+      </div>
+      <div class="nav-list" id="navList"></div>
+      <button class="sort-btn nav-home" id="navHome" type="button">◈ 시작 화면으로</button>
+    </nav>
   </div>
 
   <div class="brief-overlay hidden" id="briefOverlay">
