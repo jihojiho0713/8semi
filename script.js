@@ -116,8 +116,8 @@ function render(){runCleanups();clearInterval(timer);const s=stages[current];upd
 let briefOpen=false,briefFor=0,briefMode='game';
 const briefHTML=b=>[
 `<p class="brief-sum">${b.summary}</p>`,
-`<details class="brief-more-box" id="briefDetails"><summary><span class="brief-caret">▸</span>공정 자세히 보기</summary><div class="brief-deep">`,
 b.art?`<figure class="brief-art"><div class="dg-scroll">${b.art.svg}</div><figcaption>${b.art.caption}</figcaption></figure>`:'',
+`<details class="brief-more-box" id="briefDetails"><summary><span class="brief-caret">▸</span>공정 자세히 보기</summary><div class="brief-deep">`,
 `<p class="brief-intro">${b.processIntro}</p>`,
 `<div class="brief-grid">${b.processDetail.map(d=>`<div class="brief-cell"><b>${d.label}</b><span>${d.text}</span></div>`).join('')}</div>`,
 `<div class="brief-real"><span class="brief-real-tag">실제 현장</span><p>${b.realWorld}</p></div>`,
