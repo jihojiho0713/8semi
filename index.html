@@ -10,17 +10,76 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand"><span class="brand-mark">◈</span><span>WAFER RUNNER</span></div>
-      <div class="hud"><span id="stageCount">준비 중</span><span class="score-chip">SCORE <b id="score">0</b></span></div>
+      <div class="hud"><span id="stageCount"></span><span class="score-chip">SCORE <b id="score">0</b></span></div>
     </header>
 
     <main id="app">
       <section id="startScreen" class="screen start-screen">
-        <div class="hero-orbit"><div class="orbit-dot"></div><div class="wafer-hero">◉</div></div>
-        <p class="eyebrow">SEMICONDUCTOR QUEST · PROJECT 02</p>
-        <h1>반도체 공정,<br><em>게임으로 돌파하기</em></h1>
+        <p class="eyebrow">PLAY &amp; LEARN · 반도체 8대 공정</p>
+        <h1>반도체 공정,<br><em>게임으로 학습하기</em></h1>
         <p class="lead">잉곳부터 패키징까지, 서로 다른 8개의 미션으로<br>반도체가 만들어지는 과정을 직접 체험해 봐.</p>
         <button id="startBtn" class="primary-btn">공정 투어 시작 <span>→</span></button>
-        <div class="start-note">총 8개 스테이지 · 자유 선택 가능 · 별명 입력 없음</div>
+
+        <div class="process-map">
+          <div class="pm-head">
+            <h2 class="pm-title">한 눈에 보는 <em>반도체 8대 공정</em></h2>
+            <div class="pm-legend"><span class="pm-chip front">전공정</span><span class="pm-chip back">후공정</span></div>
+          </div>
+
+          <div class="pm-row">
+            <div class="pm-node front" style="--i:0">
+              <span class="pm-num">01</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><g class="pm-spin"><circle cx="32" cy="32" r="21" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="32" cy="32" r="13" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/><circle cx="32" cy="32" r="4.5" fill="currentColor"/><path d="M26 12.5 32 18.5 38 12.5" fill="none" stroke="currentColor" stroke-width="2.5"/></g></svg>
+              <span class="pm-name">웨이퍼 제조</span><span class="pm-tag">INGOT</span>
+            </div>
+            <span class="pm-arrow" style="--i:0.5">→</span>
+            <div class="pm-node front" style="--i:1">
+              <span class="pm-num">02</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><g class="pm-fall"><circle cx="19" cy="12" r="3.5" fill="currentColor"/><circle cx="32" cy="7" r="3.5" fill="currentColor"/><circle cx="45" cy="14" r="3.5" fill="currentColor"/></g><rect x="9" y="42" width="46" height="10" rx="2" fill="currentColor" opacity=".28"/><rect class="pm-film" x="9" y="32" width="46" height="9" rx="2" fill="currentColor" opacity=".85"/></svg>
+              <span class="pm-name">산화</span><span class="pm-tag">OXIDIZE</span>
+            </div>
+            <span class="pm-arrow" style="--i:1.5">→</span>
+            <div class="pm-node front" style="--i:2">
+              <span class="pm-num">03</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><g class="pm-beam"><path d="M17 5v14M32 5v14M47 5v14" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></g><rect x="11" y="23" width="42" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="7 5"/><rect x="9" y="40" width="46" height="12" rx="2" fill="currentColor" opacity=".35"/></svg>
+              <span class="pm-name">포토</span><span class="pm-tag">PHOTO</span>
+            </div>
+            <span class="pm-arrow" style="--i:2.5">→</span>
+            <div class="pm-node front" style="--i:3">
+              <span class="pm-num">04</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 8v11M36 8v11M50 8v11" stroke="currentColor" stroke-width="2" opacity=".55"/><g class="pm-etch"><rect x="13" y="25" width="11" height="13" rx="1.5" fill="currentColor"/><rect x="29" y="25" width="11" height="13" rx="1.5" fill="currentColor"/><rect x="45" y="25" width="9" height="13" rx="1.5" fill="currentColor"/></g><rect x="8" y="39" width="48" height="13" rx="2" fill="currentColor" opacity=".3"/></svg>
+              <span class="pm-name">식각</span><span class="pm-tag">ETCH</span>
+            </div>
+          </div>
+
+          <div class="pm-turn"><span class="pm-arrow pm-arrow-down" style="--i:3.5">↓</span></div>
+
+          <div class="pm-row pm-row-rev">
+            <div class="pm-node back" style="--i:7">
+              <span class="pm-num">08</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="13" y="25" width="38" height="27" rx="3" fill="currentColor" opacity=".38"/><path class="pm-lid" d="M11 26 32 13 53 26Z" fill="currentColor"/><path d="M22 35h20M22 44h20" stroke="var(--panel)" stroke-width="3.5" stroke-linecap="round"/></svg>
+              <span class="pm-name">패키징</span><span class="pm-tag">PACK</span>
+            </div>
+            <span class="pm-arrow" style="--i:6.5">←</span>
+            <div class="pm-node back" style="--i:6">
+              <span class="pm-num">07</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><g opacity=".85"><rect x="10" y="10" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="26" y="10" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="42" y="10" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="10" y="26" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="26" y="26" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="42" y="26" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="10" y="42" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="26" y="42" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="42" y="42" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></g><g stroke="currentColor" stroke-width="3" stroke-linecap="round"><path class="pm-x pm-x1" d="M29 13l7 7M36 13l-7 7"/><path class="pm-x pm-x2" d="M45 45l7 7M52 45l-7 7"/><path class="pm-x pm-x3" d="M13 29l7 7M20 29l-7 7"/></g></svg>
+              <span class="pm-name">EDS 테스트</span><span class="pm-tag">TEST</span>
+            </div>
+            <span class="pm-arrow" style="--i:5.5">←</span>
+            <div class="pm-node front" style="--i:5">
+              <span class="pm-num">06</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 46H24V22H40V46H56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".3"/><path class="pm-wire" d="M8 46H24V22H40V46H56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="46" r="4.5" fill="currentColor"/><circle cx="56" cy="46" r="4.5" fill="currentColor"/></svg>
+              <span class="pm-name">금속 배선</span><span class="pm-tag">CONNECT</span>
+            </div>
+            <span class="pm-arrow" style="--i:4.5">←</span>
+            <div class="pm-node front" style="--i:4">
+              <span class="pm-num">05</span>
+              <svg class="pm-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="9" y="44" width="46" height="8" rx="2" fill="currentColor" opacity=".3"/><rect class="pm-stack pm-s1" x="9" y="34" width="46" height="8" rx="2" fill="currentColor" opacity=".5"/><rect class="pm-stack pm-s2" x="9" y="24" width="46" height="8" rx="2" fill="currentColor" opacity=".72"/><rect class="pm-stack pm-s3" x="9" y="14" width="46" height="8" rx="2" fill="currentColor"/></svg>
+              <span class="pm-name">증착·이온주입</span><span class="pm-tag">LAYER</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="gameScreen" class="screen hidden">
