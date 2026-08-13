@@ -64,3 +64,1044 @@
   .pm-row-rev .pm-node:nth-child(5){order:2}
   .pm-row-rev .pm-node:nth-child(7){order:1}
 }
+
+
+/* ═══ 8대 공정 미니게임 ═══════════════════════════════════ */
+
+/* ── 1. 웨이퍼 제조: 잉곳 슬라이싱 ───────────────────────── */
+.wf-box{width:min(600px,100%)}
+.wf-stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:15px 0 4px}
+.wf-stat{flex:1 1 88px;min-width:82px;padding:8px 6px;border:1px solid #385073;border-radius:7px;background:#16233d;display:flex;flex-direction:column;gap:4px}
+.wf-stat span{font-size:9px;letter-spacing:1px;color:var(--muted)}
+.wf-stat b{font:700 15px Syne;color:var(--text)}
+.wf-good{color:var(--cyan)!important}
+.wf-badv{color:var(--pink)!important}
+.wf-track{position:relative;width:100%;height:122px;margin:12px 0 10px;border:1px solid #4a6389;border-radius:10px;background:linear-gradient(180deg,#172b4b,#0d1930);overflow:hidden;-webkit-user-select:none;user-select:none}
+.wf-ingot{position:absolute;left:2%;right:2%;top:30px;height:58px;border-radius:14px;border:2px solid #9dc6d8;box-shadow:0 10px 22px #00000066,inset 0 0 18px #ffffff22;background:repeating-linear-gradient(90deg,#ffffff14 0 2px,transparent 2px 9px),linear-gradient(180deg,#d5e8ef,#8fb3c9 40%,#42678d 78%,#25405f)}
+.wf-marks{position:absolute;left:0;right:0;top:30px;height:58px;z-index:2;pointer-events:none}
+.wf-mark{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--pink);opacity:.5}
+.wf-mark.wf-ok{background:var(--cyan);opacity:.9}
+.wf-target{position:absolute;top:16px;height:86px;left:30%;width:26%;border-radius:6px;border:1px dashed #6df0cd;background:linear-gradient(180deg,#52e5d233,#52e5d21a);box-shadow:0 0 16px #52e5d244,inset 0 0 12px #52e5d233;transition:left .18s ease,width .18s ease}
+.wf-blade{position:absolute;top:4px;bottom:4px;left:6%;width:3px;margin-left:-1.5px;z-index:3;border-radius:2px;background:linear-gradient(180deg,#ffffff,#ffd166 45%,#ffffff)}
+.wf-blade:before{content:'';position:absolute;left:50%;top:-3px;width:19px;height:19px;margin-left:-9.5px;border-radius:50%;border:2px dashed #ffffff;background:#ffd16633;box-shadow:0 0 12px #ffd166aa;animation:wfSpin 1.1s linear infinite}
+.wf-blade:after{content:'▲';position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);color:var(--yellow);font-size:11px;line-height:1}
+.wf-label{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:9px;letter-spacing:1px;color:#6f82a6}
+.wf-track.wf-hit{animation:wfHit .42s ease-out}
+.wf-track.wf-miss{animation:wfMiss .42s ease-out}
+.wf-wafers{display:flex;justify-content:center;gap:9px;margin:2px 0 8px}
+.wf-chip{width:30px;height:30px;border-radius:50%;border:2px dashed #4d6a92;background:#131f36;display:grid;place-items:center;font-size:13px;color:#0b2a2a}
+.wf-chip.wf-on{border-style:solid;border-color:#9de7dc;background:radial-gradient(circle at 32% 28%,#eafcf8,#52e5d2 62%,#1f8f88);box-shadow:0 0 12px #52e5d266}
+.wf-read{min-height:34px;margin:2px 0 0;font-size:11px;line-height:1.65;color:var(--muted)}
+.wf-cut{min-width:160px;letter-spacing:1px;touch-action:manipulation}
+.wf-cut:disabled,.wf-cut:disabled:hover{opacity:.45;cursor:default;transform:none;box-shadow:none}
+.wf-again{touch-action:manipulation}
+@keyframes wfSpin{to{transform:rotate(360deg)}}
+@keyframes wfHit{0%{box-shadow:inset 0 0 0 3px var(--cyan)}100%{box-shadow:inset 0 0 0 3px transparent}}
+@keyframes wfMiss{0%{box-shadow:inset 0 0 0 3px var(--pink);transform:translateX(-5px)}30%{transform:translateX(5px)}60%{transform:translateX(-3px)}100%{box-shadow:inset 0 0 0 3px transparent;transform:translateX(0)}}
+@media(max-width:700px){
+  .wf-track{height:106px}
+  .wf-ingot,.wf-marks{top:26px;height:50px}
+  .wf-target{top:13px;height:76px}
+  .wf-stat{flex:1 1 74px;min-width:70px;padding:7px 4px}
+  .wf-stat b{font-size:13px}
+  .wf-chip{width:26px;height:26px}
+  .wf-cut{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .wf-blade:before{animation:none}
+  .wf-track.wf-hit,.wf-track.wf-miss{animation:none}
+  .wf-target{transition:none}
+}
+
+/* ── 산화 공정: 산화로 가스 밸런싱 ───────────────────────── */
+.ox-box .mission-tip{margin:0 0 15px}
+.ox-box .mission-tip b{color:var(--yellow)}
+.ox-grow{display:flex;align-items:stretch;gap:12px;margin-bottom:14px}
+.ox-furnace{position:relative;flex:0 0 132px;padding:24px 10px 10px;border:1px solid #4a6389;border-radius:10px;background:linear-gradient(180deg,#3a2036,#101a30 65%);overflow:hidden}
+.ox-heat{position:absolute;top:7px;left:0;width:100%;text-align:center;font-size:9px;letter-spacing:1px;color:var(--yellow)}
+.ox-slot{height:52px;display:flex;align-items:flex-end}
+.ox-film{display:block;width:100%;height:0;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#a6f6ea,#52e5d2 55%,#2a8880);box-shadow:0 0 14px #52e5d255;transition:height .12s linear}
+.ox-wafer{height:26px;margin-top:2px;border-radius:0 0 5px 5px;background:linear-gradient(180deg,#89aecb,#2f5478);display:grid;place-items:center;font-size:9px;font-weight:bold;color:#08141f}
+.ox-meter{flex:1 1 auto;min-width:0;padding:10px 12px;border:1px solid #385073;border-radius:10px;background:#16223c}
+.ox-meter-label{font-size:10px;letter-spacing:1px;color:var(--muted)}
+.ox-meter .value{margin:2px 0 9px;font-size:28px}
+.ox-bar{height:12px;border-radius:7px;background:#22304e;border:1px solid #3a4f78;overflow:hidden}
+.ox-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--yellow));transition:width .12s linear}
+.ox-state{margin-top:9px;font-size:11px;line-height:1.5;color:var(--muted)}
+.ox-state.ox-on{color:var(--cyan)}
+.ox-state.ox-off{color:var(--pink)}
+.ox-gas{padding:11px 12px;border:1px solid #385073;border-radius:10px;background:#16223c;margin-bottom:10px}
+.ox-gas.ox-ok{border-color:#2f8b7f;background:#152a3d}
+.ox-gas-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.ox-name{font-size:12px;font-weight:bold;color:var(--cyan)}
+.ox-name.ox-vap{color:var(--blue)}
+.ox-num b{color:var(--text)}
+.ox-num b.ox-t{color:var(--yellow)}
+.ox-track{position:relative;height:16px;margin:9px 0 10px;border:1px solid #3a4f78;border-radius:8px;background:#22304e;overflow:hidden}
+.ox-zone{position:absolute;top:0;bottom:0;left:45%;width:10%;background:#ffd16633;border-left:2px solid var(--yellow);border-right:2px solid var(--yellow);transition:left .35s ease}
+.ox-mark{position:absolute;top:0;bottom:0;left:50%;width:8px;margin-left:-4px;border-radius:3px;background:var(--text);box-shadow:0 0 8px #edf3ff66;transition:left .1s linear}
+.ox-gas.ox-ok .ox-mark{background:var(--cyan)}
+.ox-ctrl{display:flex;align-items:center;gap:8px}
+.ox-btn{flex:1 1 0;min-width:0;min-height:42px;padding:0 6px;border:1px solid #55759d;border-radius:6px;background:#1b2b4a;color:var(--text);font:700 13px 'Space Mono',monospace;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.ox-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.ox-btn:active{background:var(--cyan);border-color:var(--cyan);color:#07151c}
+.ox-delta{flex:0 0 76px;text-align:center;font-size:12px;font-weight:bold;color:var(--pink)}
+.ox-delta.ox-ok{color:var(--cyan)}
+.ox-foot{margin-top:14px}
+.ox-reset{touch-action:manipulation}
+.ox-key{margin:10px 0 0;font-size:10px;line-height:1.6;color:var(--muted)}
+@media(max-width:700px){
+  .ox-grow{flex-direction:column;gap:10px}
+  .ox-furnace{flex:0 0 auto}
+  .ox-slot{height:44px}
+  .ox-delta{flex:0 0 62px;font-size:11px}
+  .ox-btn{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ox-film,.ox-bar i,.ox-zone,.ox-mark{transition:none}
+}
+
+/* ── 3. 포토 공정: 스핀 코팅 미니게임 ───────────────────── */
+.ph-box{width:min(560px,100%)}
+.ph-box p b{color:var(--yellow)}
+.ph-stage{position:relative;width:100%;max-width:420px;height:236px;margin:16px auto 12px;border:1px solid #3d557d;border-radius:12px;background:radial-gradient(circle at 50% 57%,#1c2e51,#0b1424 72%);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;transition:border-color .2s,box-shadow .2s}
+.ph-stage.ph-lock{border-color:var(--cyan);box-shadow:inset 0 0 30px #52e5d21f,0 0 16px #52e5d233}
+.ph-wafer{position:absolute;left:50%;top:57%;width:152px;height:152px;margin:-76px 0 0 -76px;border-radius:50%;background:radial-gradient(circle at 34% 26%,#e2eef6,#9fbdd2 42%,#5b82a8 72%,#33547c);border:2px solid #b3d0e2;box-shadow:0 12px 26px #0008,0 0 0 8px #0d1526,0 0 0 9px #35496d;will-change:transform}
+.ph-stage.ph-fast .ph-wafer{filter:blur(1px)}
+.ph-coat{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#fff0c9 0,#ffd166 40%,#f2a93a 76%,#d98b26 100%);opacity:.2;transform:scale(.32);transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .5s}
+.ph-spoke{position:absolute;left:50%;top:6%;width:2px;height:88%;margin-left:-1px;border-radius:2px;background:linear-gradient(180deg,#ffffff55,#ffffff12)}
+.ph-s2{transform:rotate(90deg)}
+.ph-notch{position:absolute;left:50%;top:-6px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#0b1424;border:2px solid #b3d0e2}
+.ph-bull{position:absolute;left:50%;top:50%;width:30%;height:30%;margin:-15% 0 0 -15%;border-radius:50%;border:2px dashed var(--cyan);box-shadow:0 0 12px #52e5d266;animation:phPulse 1.8s ease-in-out infinite}
+.ph-splash{position:absolute;z-index:7;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--yellow);opacity:0;pointer-events:none}
+.ph-splash.ph-fx-good{animation:phSpread .65s ease-out}
+.ph-splash.ph-fx-bad{background:var(--pink);animation:phClump .65s ease-out}
+.ph-dropper{position:absolute;left:10px;top:4px;z-index:8;width:38px;display:flex;flex-direction:column;align-items:center;cursor:grab;touch-action:none;-webkit-touch-callout:none}
+.ph-dropper span{width:38px;padding:5px 0;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#31507f,#182746);border:1px solid #7a9cd4;color:var(--yellow);font:700 9px 'Space Mono',monospace;text-align:center;box-shadow:0 0 12px #7698ff44}
+.ph-dropper i{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:22px solid #9dbcf0;filter:drop-shadow(0 0 6px #7698ffaa)}
+.ph-dropper.ph-hold{cursor:grabbing}
+.ph-dropper.ph-hold i{animation:phDrip .6s ease-in-out infinite}
+.ph-hint{position:absolute;left:0;right:0;bottom:5px;text-align:center;font-size:10px;color:var(--muted);pointer-events:none}
+.ph-hint.ph-hot{color:var(--cyan);font-weight:bold}
+.ph-gauge{position:relative;width:100%;max-width:420px;height:16px;margin:0 auto;border:1px solid #3d557d;border-radius:9px;background:#0d1730;overflow:hidden}
+.ph-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#7698ff,#ff709f)}
+.ph-fill.ph-in{background:linear-gradient(90deg,#52e5d2,#a8f3e8)}
+.ph-band{position:absolute;z-index:2;left:52.38%;width:28.57%;top:0;bottom:0;background:#52e5d226;border-left:2px solid var(--cyan);border-right:2px solid var(--cyan);pointer-events:none}
+.ph-scale{display:flex;justify-content:space-between;gap:6px;width:100%;max-width:420px;margin:6px auto 0;font-size:9px;letter-spacing:.5px;color:var(--muted)}
+.ph-ok{color:var(--cyan)}
+.ph-meters{display:flex;justify-content:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.ph-meter{min-width:112px;padding:8px 12px;border:1px solid #3d557d;border-radius:9px;background:#101c33}
+.ph-meter small{display:block;font-size:9px;letter-spacing:1px;color:var(--muted)}
+.ph-meter b{font:700 24px Syne;color:var(--yellow)}
+.ph-meter b.ph-uni{color:var(--cyan)}
+.ph-spin{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.ph-spin:active{transform:translateY(1px) scale(.97)}
+.ph-reset{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@keyframes phPulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes phSpread{0%{opacity:.95;transform:scale(.4)}100%{opacity:0;transform:scale(8)}}
+@keyframes phClump{0%{opacity:.95;transform:scale(.5)}55%{opacity:.9;transform:scale(2.4)}100%{opacity:0;transform:scale(1.7)}}
+@keyframes phDrip{0%,100%{border-top-color:#9dbcf0}50%{border-top-color:var(--yellow)}}
+@media(max-width:430px){
+  .ph-stage{height:214px}
+  .ph-wafer{width:132px;height:132px;margin:-66px 0 0 -66px}
+  .ph-meter{min-width:96px;padding:7px 9px}
+  .ph-meter b{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){.ph-bull{animation:none}.ph-coat{transition:none}}
+
+/* ── 4. 식각(ETCH): 용액 담금 타이밍 ──────────────────────── */
+.et-box{-webkit-user-select:none;user-select:none}
+.et-hl{color:var(--cyan)}
+.et-stage{display:flex;gap:12px;align-items:stretch;width:min(520px,100%);margin:18px auto 10px}
+.et-tank{position:relative;flex:1 1 auto;min-width:0;height:190px;border:1px solid #4b648a;border-radius:9px;overflow:hidden;background:linear-gradient(180deg,#16223c 0 26%,#134055 26%,#0c2233);cursor:pointer;touch-action:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.et-surface{position:absolute;left:0;right:0;top:26%;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.6}
+.et-tank-tag{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:9px;letter-spacing:1px;color:#7f96b8}
+.et-bub{position:absolute;bottom:14px;width:7px;height:7px;border-radius:50%;background:var(--cyan);opacity:0}
+.et-b1{left:18%}.et-b2{left:38%}.et-b3{left:58%}.et-b4{left:76%}
+.et-tank.et-run .et-bub{animation:etBub 1.5s linear infinite}
+.et-tank.et-run .et-b2{animation-delay:.38s}
+.et-tank.et-run .et-b3{animation-delay:.76s}
+.et-tank.et-run .et-b4{animation-delay:1.14s}
+@keyframes etBub{0%{transform:translateY(0) scale(.5);opacity:0}25%{opacity:.85}100%{transform:translateY(-95px) scale(1.2);opacity:0}}
+.et-wafer{position:absolute;left:15%;right:15%;top:12px;height:22px;border-radius:4px;border:2px solid #b9d6e4;background:linear-gradient(180deg,#e6f1f7,#9cbfd4 55%,#537696);box-shadow:0 6px 16px #0007}
+.et-wafer:after{content:'웨이퍼';position:absolute;left:0;right:0;top:2px;text-align:center;font-size:9px;font-weight:bold;color:#0d1b2c}
+.et-gauge{position:relative;flex:0 0 56px;width:56px;height:190px;border:1px solid #4b648a;border-radius:9px;overflow:hidden;background:#101b31}
+.et-fill{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,var(--pink),#7c2d4c)}
+.et-band{position:absolute;left:0;right:0;bottom:40%;height:20%;background:#52e5d229;border-top:2px solid var(--cyan);border-bottom:2px solid var(--cyan)}
+.et-band.et-hot{background:#52e5d266;box-shadow:inset 0 0 16px #52e5d2}
+.et-mark{position:absolute;left:0;right:0;bottom:0;border-top:2px dashed var(--yellow)}
+.et-mark.et-hide{display:none}
+.et-cap{position:absolute;left:0;right:0;top:5px;text-align:center;font-size:9px;letter-spacing:1px;color:#8ea3c4;pointer-events:none}
+.et-meta{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.et-meta b{margin-left:6px;font:700 16px Syne;color:var(--yellow)}
+.et-meta b.et-goal{color:var(--cyan)}
+.et-dots{display:flex;justify-content:center;gap:10px;margin:14px 0 2px}
+.et-dot{width:14px;height:14px;border-radius:50%;border:2px solid #55759d;background:#16223c}
+.et-dot.et-on{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 12px #52e5d2aa}
+.et-hold{display:block;width:min(320px,100%);margin:8px auto 0;padding:18px 16px;font-size:14px;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.et-hold.et-on{background:var(--yellow);transform:translateY(2px);box-shadow:0 0 22px #ffd16688}
+.et-log{min-height:36px;margin:12px 0 0}
+@media(max-width:430px){
+  .et-stage{gap:9px}
+  .et-tank,.et-gauge{height:168px}
+  .et-gauge{flex-basis:44px;width:44px}
+  .et-cap{font-size:8px}
+  .et-hold{padding:16px 10px;font-size:13px}
+  .et-meta{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.et-tank.et-run .et-bub{animation:none;opacity:.45}}
+
+/* ── 05. 증착·이온주입: 박막 적층 게임 ──────────────────────── */
+.dp-box h3{margin-bottom:10px}
+.dp-stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 10px}
+.dp-stat{flex:0 1 100px;min-width:0;padding:8px 6px;border:1px solid #385073;border-radius:7px;background:#16233d;display:flex;flex-direction:column;gap:4px;font-size:10px;color:var(--muted)}
+.dp-stat b{font:700 17px Syne;color:var(--cyan)}
+.dp-stat b.dp-voidnum{color:var(--pink)}
+.dp-source{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:6px}
+.dp-board{width:min(320px,100%);max-width:100%;margin:0 auto;padding:6px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;border:1px solid #4a6389;border-radius:10px;background:linear-gradient(180deg,#0c1729,#16294a);touch-action:none;user-select:none;-webkit-user-select:none}
+.dp-cell{aspect-ratio:1/1;min-width:0;display:grid;place-items:center;border:1px solid #22314f;border-radius:4px;background:#141f38;font-size:15px;line-height:1;color:transparent;transition:background .12s,border-color .12s,box-shadow .12s}
+.dp-target{background:#17284a;border-color:#31507e}
+.dp-atom{background:#39538c;border-color:var(--blue);color:#e3ecff}
+.dp-ion{background:#5d4a1c;border-color:var(--yellow);color:var(--yellow)}
+.dp-void{background:#33172a;border-style:dashed;border-color:var(--pink);color:var(--pink);font-size:13px}
+.dp-full{background:#1a6b64;border-style:solid;border-color:var(--cyan);color:#eafffb;box-shadow:0 0 12px #52e5d24d}
+.dp-full.dp-ion{border-color:var(--yellow);color:var(--yellow)}
+.dp-fall{background:#24406e;border-style:solid;border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 14px #52e5d288;animation:dpPulse .55s ease-in-out infinite alternate}
+.dp-fall-ion{border-color:var(--yellow);color:var(--yellow);box-shadow:0 0 14px #ffd16688}
+@keyframes dpPulse{from{transform:scale(.84)}to{transform:scale(1)}}
+.dp-pad{margin-top:14px;gap:8px}
+.dp-key{min-width:96px;padding:14px 10px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.dp-drop{background:var(--yellow);color:#241a05}
+.dp-hint{margin-top:12px;font-size:11px;line-height:1.7}
+@media(max-width:430px){
+  .dp-board{width:100%;gap:3px;padding:5px}
+  .dp-cell{font-size:13px}
+  .dp-void{font-size:11px}
+  .dp-stat{flex:1 1 30%}
+  .dp-key{min-width:0;flex:1 1 28%;padding:13px 2px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.dp-fall{animation:none}}
+
+/* ── 6. 금속 배선 공정: 배선 회전 퍼즐 ───────────────────── */
+.mi-board{width:min(400px,100%);max-width:100%;margin:16px auto 10px;display:grid;grid-template-columns:44px repeat(4,minmax(0,1fr)) 44px;gap:2px;padding:10px 5px;border:1px solid #385073;border-radius:10px;background:radial-gradient(circle at 50% 0,#1b2c4d,#0c1526);touch-action:manipulation}
+.mi-port{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;color:#5b6c92;font-size:9px}
+.mi-port b{font-size:15px;line-height:1}
+.mi-port i{font-style:normal;font-size:7px;letter-spacing:.5px}
+.mi-src.mi-live,.mi-dst.mi-goal{border:1px solid #46618d;border-radius:6px;background:#16233d;color:var(--muted);transition:.25s}
+.mi-src.mi-live b{color:var(--yellow)}
+.mi-dst.mi-goal b{color:var(--pink)}
+.mi-port.mi-hot{border-color:var(--cyan);background:#0f3240;color:var(--cyan);box-shadow:0 0 16px #52e5d255}
+.mi-port.mi-hot b{color:var(--cyan)}
+.mi-tile{width:100%;min-width:0;aspect-ratio:1/1;padding:0;line-height:0;border:1px solid #34486e;border-radius:7px;background:#18243d;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .2s,border-color .2s}
+.mi-tile:hover{border-color:#5d7cab;background:#1d2c4a}
+.mi-tile:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.mi-rot{display:block;width:100%;height:100%;transition:transform .25s cubic-bezier(.4,1.5,.6,1)}
+.mi-svg{display:block;width:100%;height:100%}
+.mi-pipe{fill:none;stroke:#5d7099;stroke-width:12;stroke-linecap:round;stroke-linejoin:round}
+.mi-hub{fill:#7387b0}
+.mi-flow{fill:none;stroke:transparent;stroke-width:5;stroke-linecap:round;stroke-dasharray:5 17}
+.mi-tile.mi-on{border-color:#2f7275;background:#102a3c}
+.mi-tile.mi-on .mi-pipe{stroke:var(--cyan);filter:drop-shadow(0 0 4px #52e5d2aa)}
+.mi-tile.mi-on .mi-hub{fill:#eafffb}
+.mi-tile.mi-on .mi-flow{stroke:#eafffb;animation:miFlow 1.1s linear infinite}
+@keyframes miFlow{to{stroke-dashoffset:-44}}
+.mi-status{margin:6px 0 0;font-size:11px;color:var(--muted);line-height:1.6}
+.mi-status b{color:var(--yellow);margin:0 3px}
+.mi-status.mi-done{color:var(--cyan)}
+.mi-status.mi-done b{color:var(--cyan)}
+.mi-box .controls{margin-top:12px}
+@media(max-width:430px){
+  .mi-board{grid-template-columns:30px repeat(4,minmax(0,1fr)) 30px;padding:8px 3px}
+  .mi-port b{font-size:13px}
+  .mi-port i{font-size:6px}
+  .mi-pipe{stroke-width:13}
+}
+@media(prefers-reduced-motion:reduce){
+  .mi-rot{transition:none}
+  .mi-tile.mi-on .mi-flow{animation:none}
+}
+
+/* ── 7. EDS 공정: 프로브 불량 마킹 ───────────────────────── */
+.ed-box{width:min(650px,100%)}
+.ed-hud{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:16px 0 11px}
+.ed-stat{flex:1 1 90px;min-width:90px;max-width:160px;padding:9px 5px;border:1px solid #385073;border-radius:8px;background:#16243f}
+.ed-stat span{display:block;font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:3px}
+.ed-stat b{font:700 22px Syne;color:var(--cyan)}
+.ed-sub{font-style:normal;font-size:11px;color:var(--muted);margin-left:3px}
+.ed-stat-goal b{color:var(--yellow)}
+.ed-stat-miss b{color:var(--pink)}
+.ed-track{width:min(360px,100%);height:6px;margin:0 auto 15px;border-radius:9px;background:#202b45;overflow:hidden}
+.ed-track-fill{height:100%;width:100%;background:linear-gradient(90deg,var(--pink),var(--yellow),var(--cyan));transition:width .12s linear}
+.ed-wafer{position:relative;width:min(360px,100%);aspect-ratio:1;margin:0 auto;padding:10px;border:2px solid #7091b8;border-radius:50%;background:radial-gradient(circle at 30% 22%,#35547a,#1b2c49 60%,#0f1c32);box-shadow:0 0 26px #7698ff33,inset 0 0 26px #0008;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.ed-wafer:after{content:'';position:absolute;left:50%;bottom:-9px;width:28px;height:17px;transform:translateX(-50%);border-radius:50%;background:#101b31}
+.ed-grid{width:100%;height:100%;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);gap:3px}
+.ed-die{display:grid;place-items:center;padding:0;border:1px solid #47638c;border-radius:3px;background:#22355a;color:transparent;font:700 clamp(13px,4vw,19px)/1 'Space Mono',monospace;cursor:pointer;touch-action:pan-y;-webkit-tap-highlight-color:transparent;transition:background .12s,border-color .12s}
+.ed-die:after{content:'✕'}
+.ed-die:hover{border-color:#7fb0e4}
+.ed-void{visibility:hidden;pointer-events:none}
+.ed-bad{background:var(--pink);border-color:#ffd3e2;color:#3d0a1d;box-shadow:0 0 13px #ff709faa;animation:edBad .55s ease-in-out infinite alternate}
+.ed-ink{background:var(--cyan);border-color:#b6fff3;color:#06212b;box-shadow:0 0 10px #52e5d266}
+.ed-ink:after{content:'●'}
+.ed-lost{background:#1b2439;border-color:#3a4d74;color:#5f6f92}
+.ed-hit{animation:edHit .42s ease-out}
+.ed-good{animation:edGood .34s ease-out}
+@keyframes edBad{from{transform:scale(1)}to{transform:scale(1.09)}}
+@keyframes edHit{0%{transform:scale(1.45);box-shadow:0 0 24px var(--cyan)}100%{transform:scale(1);box-shadow:0 0 10px #52e5d266}}
+@keyframes edGood{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px)}70%{transform:translateX(3px)}}
+.ed-note{min-height:34px;margin:13px 0 0;font-size:11px;line-height:1.6;color:var(--muted)}
+.ed-box .controls{margin-top:6px}
+@media(max-width:700px){.ed-stat{flex-basis:78px;min-width:78px;padding:8px 4px}.ed-stat b{font-size:19px}.ed-sub{font-size:10px}.ed-die{border-radius:2px}}
+@media(prefers-reduced-motion:reduce){.ed-bad,.ed-hit,.ed-good{animation:none}}
+
+/* ── 08 패키징: 레이저 다이싱 ───────────────────────────── */
+.pk-box{width:min(560px,100%)}
+.pk-hud{display:flex;flex-wrap:wrap;justify-content:center;gap:5px 15px;margin:14px 0 2px;font-size:11px;color:var(--muted);letter-spacing:.5px}
+.pk-hud b{color:var(--yellow);margin-left:6px}
+.pk-board{position:relative;width:min(320px,100%);aspect-ratio:1/1;margin:12px auto 6px;border:1px solid #4a6389;border-radius:14px;background:radial-gradient(circle at 50% 42%,#1e365c 0,#101c33 66%,#0b1424 100%);box-shadow:inset 0 0 42px #00000099;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;cursor:crosshair}
+.pk-board>*{position:absolute;pointer-events:none}
+.pk-die{border-radius:3px;background:linear-gradient(140deg,#3f6595,#22375d);border:1px solid #7397c8;box-shadow:inset 0 0 0 2px #ffffff10;display:grid;place-items:center;transition:transform .45s ease,border-color .3s,box-shadow .3s}
+.pk-die i{width:50%;height:50%;border:1px solid #a6c6ee55;border-radius:2px;background:repeating-linear-gradient(90deg,#ffffff26 0 2px,transparent 2px 5px)}
+.pk-lane{z-index:2;background:#00000055;border-radius:2px;transition:background .3s}
+.pk-lane-v{top:0;height:100%}
+.pk-lane-h{left:0;width:100%}
+.pk-lane-v.pk-active{background:linear-gradient(180deg,#ffd16640,#52e5d218)}
+.pk-lane-h.pk-active{background:linear-gradient(90deg,#ffd16640,#52e5d218)}
+.pk-cut{z-index:3;opacity:0;transition:opacity .25s}
+.pk-cut-v{top:0;height:100%;width:0;border-left:2px solid var(--cyan);transform:translateX(-1px);box-shadow:0 0 11px #52e5d2aa}
+.pk-cut-h{left:0;width:100%;height:0;border-top:2px solid var(--cyan);transform:translateY(-1px);box-shadow:0 0 11px #52e5d2aa}
+.pk-cut.pk-done{opacity:1}
+.pk-trail{z-index:4;border-radius:4px;box-shadow:0 0 10px #ffd16677}
+.pk-trail-v{width:5px;transform:translateX(-50%);background:linear-gradient(180deg,var(--yellow),var(--cyan))}
+.pk-trail-h{height:5px;transform:translateY(-50%);background:linear-gradient(90deg,var(--yellow),var(--cyan))}
+.pk-mark{z-index:5;width:22px;height:22px;border-radius:50%;transform:translate(-50%,-50%)}
+.pk-start{border:2px solid var(--yellow);background:#ffd16630;animation:pkPulse 1.7s ease-out infinite}
+.pk-end{border:2px dashed var(--cyan);background:#52e5d21f}
+.pk-laser{z-index:6;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);background:#ffffff;box-shadow:0 0 8px 3px #ffd166cc,0 0 20px 7px #ffd16644}
+.pk-laser.pk-on{box-shadow:0 0 9px 4px #52e5d2,0 0 26px 10px #52e5d255}
+.pk-laser.pk-bad{background:var(--pink);box-shadow:0 0 10px 5px #ff709f,0 0 26px 10px #ff709f55}
+.pk-board.pk-live{cursor:grabbing}
+.pk-board.pk-split .pk-die{transform:translate(var(--dx),var(--dy));border-color:var(--cyan);box-shadow:0 0 14px #52e5d255,inset 0 0 0 2px #52e5d21f}
+.pk-board.pk-shake{animation:pkShake .3s ease}
+@keyframes pkPulse{0%{box-shadow:0 0 0 0 #ffd16688}70%{box-shadow:0 0 0 13px #ffd16600}100%{box-shadow:0 0 0 0 #ffd16600}}
+@keyframes pkShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media(max-width:700px){.pk-hud{font-size:10px;gap:4px 11px}.pk-board{margin-top:10px}}
+@media(prefers-reduced-motion:reduce){.pk-start,.pk-board.pk-shake{animation:none}}
+
+/* ── 공정 브리핑 팝업 ───────────────────────────────────── */
+.brief-overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:#04070fd9;backdrop-filter:blur(3px);animation:briefIn .18s ease-out}
+body.brief-lock{overflow:hidden}
+.brief-card{position:relative;width:min(680px,100%);max-height:min(86vh,860px);display:flex;flex-direction:column;border:1px solid #3a5480;border-radius:14px;background:linear-gradient(160deg,#18243f,#0e1729);box-shadow:0 30px 70px #00000088}
+.brief-x{position:absolute;top:12px;right:12px;width:30px;height:30px;border:1px solid var(--line);border-radius:6px;background:#1b2843;color:var(--muted);font-size:12px;cursor:pointer;line-height:1}
+.brief-x:hover{color:var(--text);border-color:#4d6a92}
+.brief-head{display:flex;align-items:center;gap:16px;padding:24px 26px 16px;border-bottom:1px solid var(--line)}
+.brief-no{font:800 40px Syne;color:#2b3d63;line-height:1}
+.brief-head h2{font:700 26px Syne;margin:4px 0 0;letter-spacing:-.5px}
+.brief-body{overflow-y:auto;padding:20px 26px 4px;display:flex;flex-direction:column;gap:16px}
+.brief-intro{margin:0;font-size:13px;line-height:1.85;color:var(--text)}
+.brief-grid{display:grid;gap:8px}
+.brief-cell{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:start;padding:11px 13px;border:1px solid #2f4368;border-radius:8px;background:#131f36}
+.brief-cell b{font-size:11px;color:var(--cyan);letter-spacing:.5px;padding-top:2px}
+.brief-cell span{font-size:12px;line-height:1.7;color:var(--muted)}
+.brief-real{padding:13px 15px;border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;background:#ffd1660f}
+.brief-real-tag{font-size:9px;letter-spacing:2px;color:var(--yellow);font-weight:bold}
+.brief-real p{margin:6px 0 0;font-size:12px;line-height:1.75;color:#c9d6ef}
+.brief-how h3{font:700 15px Syne;margin:0 0 9px;color:var(--text)}
+.brief-how ol{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:7px}
+.brief-how li{font-size:12.5px;line-height:1.7;color:var(--muted)}
+.brief-how li::marker{color:var(--cyan);font-weight:bold}
+.brief-goal{padding:13px 15px;border:1px solid #2f4368;border-radius:8px;background:#101a2f;display:flex;flex-direction:column;gap:7px}
+.brief-goal p{margin:0;font-size:12px;line-height:1.7;color:var(--muted)}
+.brief-goal b{color:var(--cyan);margin-right:7px}
+.brief-tip b{color:var(--yellow)}
+.brief-foot{padding:16px 26px 22px;border-top:1px solid var(--line);display:flex;justify-content:center}
+.brief-foot .primary-btn{margin-top:0;min-width:220px}
+.game-idle{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--muted);font-size:12px}
+.stage-tools{display:flex;justify-content:flex-end;margin:-6px 0 2px}
+@keyframes briefIn{from{opacity:0}to{opacity:1}}
+@media(max-width:700px){
+  .brief-overlay{padding:10px}
+  .brief-card{max-height:92vh}
+  .brief-head{padding:18px 18px 13px;gap:12px}
+  .brief-no{font-size:31px}
+  .brief-head h2{font-size:20px}
+  .brief-body{padding:16px 18px 4px;gap:13px}
+  .brief-cell{grid-template-columns:1fr;gap:4px}
+  .brief-foot{padding:13px 18px 18px}
+  .brief-foot .primary-btn{width:100%;min-width:0}
+}
+@media(prefers-reduced-motion:reduce){.brief-overlay{animation:none}}
+/* 긴 제목이 좁은 화면에서 번호 위로 넘치지 않게 */
+.brief-no{flex:0 0 auto}
+.brief-head>div{flex:1 1 auto;min-width:0}
+.brief-head h2{overflow-wrap:break-word;word-break:keep-all}
+/* 브리핑 본문에 더 읽을 내용이 남았을 때의 페이드 + 힌트 */
+.brief-foot{position:relative}
+.brief-card.brief-more .brief-foot:before{content:'';position:absolute;left:1px;right:1px;top:-64px;height:64px;pointer-events:none;background:linear-gradient(#101a2e00,#101a2ecc 45%,#101a2e 78%)}
+.brief-card.brief-more .brief-foot:after{content:'▼ 아래로 더 있어';position:absolute;left:0;right:0;top:-14px;text-align:center;font-size:9px;letter-spacing:1px;color:var(--yellow);pointer-events:none;animation:briefNudge 1.7s ease-in-out infinite}
+@keyframes briefNudge{0%,100%{opacity:.55}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.brief-card.brief-more .brief-foot:after{animation:none;opacity:1}}
+/* 브리핑: 한 줄 요약 + 접이식 공정 설명 */
+.brief-sum{margin:0;padding:13px 15px;border:1px solid #2f4368;border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;background:#52e5d20d;font-size:13px;line-height:1.75;color:var(--text)}
+.brief-more-box{border:1px solid #2f4368;border-radius:8px;background:#121d33;overflow:hidden}
+.brief-more-box>summary{list-style:none;cursor:pointer;padding:12px 15px;display:flex;align-items:center;gap:9px;font-size:12px;font-weight:bold;color:var(--cyan);letter-spacing:.5px}
+.brief-more-box>summary::-webkit-details-marker{display:none}
+.brief-more-box>summary:hover{background:#18253f}
+.brief-more-box>summary:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
+.brief-caret{display:inline-block;transition:transform .18s ease;font-size:10px}
+.brief-more-box[open]>summary{border-bottom:1px solid #2f4368}
+.brief-more-box[open] .brief-caret{transform:rotate(90deg)}
+.brief-deep{padding:15px;display:flex;flex-direction:column;gap:13px}
+.brief-deep .brief-intro{font-size:12.5px}
+@media(prefers-reduced-motion:reduce){.brief-caret{transition:none}}
+/* flex 컬럼에서 자식이 눌려 잘리지 않게 (접이식 설명이 overflow:hidden 으로 클리핑되던 문제) */
+.brief-body>*{flex:0 0 auto}
+/* 로고를 시작 화면 이동 버튼으로 (button 기본 스타일 제거) */
+.brand{border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.brand:hover .brand-mark{color:var(--yellow)}
+.brand:hover span:last-child{color:var(--cyan)}
+.brand-mark{transition:color .18s ease}
+.brand:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){.brand-mark{transition:none}}
+/* 공정 단면도 (브리핑 "공정 자세히 보기" 안) */
+.brief-art{margin:0;padding:12px 12px 9px;border:1px solid #2f4368;border-radius:8px;background:#0b1424;overflow:hidden}
+.brief-art .dg{display:block;width:100%;height:auto}
+.brief-art figcaption{margin-top:9px;text-align:center;font-size:10px;letter-spacing:.3px;color:var(--muted)}
+
+
+/* ═══ 공정 단면도 ════════════════════════════════════════ */
+
+.dg-slice{display:block;width:100%;height:auto;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif}
+.dg-slice .rail{fill:#24334f;stroke:#7698ff;stroke-width:1.5}
+.dg-slice .grv line{stroke:#0b1424;stroke-width:2.6;opacity:.55}
+.dg-slice .ing{fill:url(#dgSliceSi);stroke:#9fb2d4;stroke-width:1.5}
+.dg-slice .face{fill:#5c7ba6;stroke:#cfe0ff;stroke-width:1.5}
+.dg-slice .kerf{stroke:#0b1424;stroke-width:4.8;stroke-dasharray:76;stroke-dashoffset:0;animation:dgSliceKerf 7s linear infinite}
+.dg-slice .wire{stroke:#dce7fb;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:115;stroke-dashoffset:0;animation:dgSliceWire 7s linear infinite}
+.dg-slice .cut{animation:dgSliceFade 7s linear infinite}
+.dg-slice .zoom{fill:none;stroke:#91a0bf;stroke-width:1.2;stroke-dasharray:5 4;opacity:.75}
+.dg-slice .lead{fill:none;stroke:#91a0bf;stroke-width:1.2;stroke-dasharray:5 4;opacity:.75}
+.dg-slice .leadhd{fill:#91a0bf;opacity:.75}
+.dg-slice .lead2{stroke:#cfe0ff;stroke-width:1.3}
+.dg-slice .si{fill:url(#dgSliceSi);stroke:#c3d4f2;stroke-width:1.4}
+.dg-slice .kerfz{fill:#ff709f;opacity:.22}
+.dg-slice .kerfl{stroke:#ff709f;stroke-width:1.2;stroke-dasharray:3 4;opacity:.9}
+.dg-slice .dim{stroke:#c8d6f2;stroke-width:1.1}
+.dg-slice .dimhd{fill:#c8d6f2}
+.dg-slice .brk{fill:none;stroke:#ff709f;stroke-width:1.4}
+.dg-slice .t-main{fill:#edf3ff;font-size:16px;font-weight:700}
+.dg-slice .t-dim{fill:#edf3ff;font-size:15px;font-weight:700}
+.dg-slice .t-kerf{fill:#ff709f;font-size:15px;font-weight:700}
+.dg-slice .t-head{fill:#91a0bf;font-size:15px}
+.dg-slice .t-sub{fill:#91a0bf;font-size:14px}
+.dg-slice .t-chip{fill:#dbe6ff;font-size:15px}
+@keyframes dgSliceWire{0%,5%{stroke-dashoffset:100}48%,93%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:100}}
+@keyframes dgSliceKerf{0%,10%{stroke-dashoffset:76}43%,93%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:76}}
+@keyframes dgSliceFade{0%,88%{opacity:1}93%,96%{opacity:0}100%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.dg-slice .wire,.dg-slice .kerf,.dg-slice .cut{animation:none}}
+
+.dg-oxide{
+  display:block; width:100%; height:auto;
+  font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+}
+.dg-oxide .sub{font-size:13px}
+
+/* 공정 조건 배지 */
+.dg-oxide .badge{fill:#17233d;stroke:#3d5185;stroke-width:1.5}
+.dg-oxide .badgeT{fill:#ffd166;font-size:15px;font-weight:700}
+
+/* 산소 범례 */
+.dg-oxide .lgdD{fill:#ff709f;opacity:.9}
+.dg-oxide .lgdT{fill:#edf3ff;font-size:15px}
+
+/* 내려오는 O2 분자: 웨이퍼 표면(y=130)까지 내려가 막/기판 뒤로 사라진다 */
+.dg-oxide .o2{
+  opacity:.9;
+  transform-box:fill-box; transform-origin:50% 50%;
+  animation:dgOxideFall 2.4s linear infinite;
+}
+.dg-oxide .d2{animation-delay:-.4s}
+.dg-oxide .d3{animation-delay:-.8s}
+.dg-oxide .d4{animation-delay:-1.2s}
+.dg-oxide .d5{animation-delay:-1.6s}
+.dg-oxide .d6{animation-delay:-2s}
+@keyframes dgOxideFall{
+  0%   {transform:translateY(0);opacity:0}
+  14%  {opacity:.95}
+  72%  {opacity:.95}
+  100% {transform:translateY(70px);opacity:0}
+}
+
+/* 산화막: 원래 표면(y=130)에 고정된 채 위·아래로 동시에 자람.
+   위 36 : 아래 28 = 56 : 44 이므로 성장 내내 비율이 유지된다.
+   ease-out 은 Deal-Grove 의 포물선 구간(두꺼워질수록 느려짐)을 흉내낸 것. */
+.dg-oxide .ox{fill:#4dd6c6;animation:dgOxideGrow 8s ease-out infinite}
+.dg-oxide .oxU{transform-box:fill-box;transform-origin:50% 100%}
+.dg-oxide .oxD{transform-box:fill-box;transform-origin:50% 0%}
+@keyframes dgOxideGrow{
+  0%,5%    {transform:scaleY(0);opacity:1}
+  62%,90%  {transform:scaleY(1);opacity:1}
+  97%,100% {transform:scaleY(1);opacity:0}
+}
+
+/* 산화막 라벨: 글자가 들어갈 두께가 확보된 뒤에 나타남 */
+.dg-oxide .oxT{fill:#06121f;font-size:16px;font-weight:700;animation:dgOxideLbl 8s ease-out infinite}
+@keyframes dgOxideLbl{
+  0%,38%   {opacity:0}
+  52%,90%  {opacity:1}
+  97%,100% {opacity:0}
+}
+
+.dg-oxide .siT{fill:#dce7f9;font-size:16px;font-weight:600}
+
+/* 원래 표면 기준선 */
+.dg-oxide .orig{stroke:#ffd166;stroke-width:2;stroke-dasharray:7 5;fill:none}
+.dg-oxide .origT{fill:#ffd166;font-size:15px;font-weight:600}
+
+/* 44 : 56 눈금자 */
+.dg-oxide .tkC{stroke:#52e5d2;stroke-width:1.6;opacity:.7}
+.dg-oxide .tkP{stroke:#ff709f;stroke-width:1.6;opacity:.7}
+.dg-oxide .barU{stroke:#52e5d2;stroke-width:2.4;stroke-linecap:round}
+.dg-oxide .hdU{fill:#52e5d2}
+.dg-oxide .barD{stroke:#ff709f;stroke-width:2.4;stroke-linecap:round}
+.dg-oxide .hdD{fill:#ff709f}
+.dg-oxide .pctU{fill:#52e5d2;font-size:16px;font-weight:700}
+.dg-oxide .pctD{fill:#ff709f;font-size:16px;font-weight:700}
+.dg-oxide .note{fill:#9aa9c7;font-size:14px}
+.dg-oxide .head{fill:#c3d0e8;font-size:14px;font-weight:600}
+
+/* 애니메이션을 끄면 '다 자란 산화막' 최종 상태가 그대로 남는다.
+   (정지 상태 = 기본 상태이고, 애니메이션은 그 위를 덮어쓰는 구조) */
+@media (prefers-reduced-motion:reduce){
+  .dg-oxide .ox,
+  .dg-oxide .oxT,
+  .dg-oxide .o2{animation:none}
+}
+
+.dg-photo{width:100%;height:auto;display:block}
+.dg-photo text{font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+
+/* --- 웨이퍼 층 (아래부터: 실리콘 기판 / 산화막 / 감광액) --- */
+.dg-photo .si{fill:#3f587e;stroke:#0b1424;stroke-opacity:.45;stroke-width:1}
+.dg-photo .si-tex{fill:url(#dgPhotoSi);stroke:none}
+.dg-photo .ox{fill:#3fc4b5;stroke:#0b1424;stroke-opacity:.45;stroke-width:1}
+.dg-photo .ox-tex{fill:url(#dgPhotoOx);stroke:none}
+.dg-photo .pr{fill:#ffd166;stroke:#0b1424;stroke-opacity:.45;stroke-width:1}
+.dg-photo .exp{fill:#fff0bf;stroke:#0b1424;stroke-opacity:.45;stroke-width:1}
+.dg-photo .exp-tex{fill:url(#dgPhotoExp);stroke:none}
+
+/* --- 마스크: 투명 유리판 + 빛을 막는 크롬 블록 --- */
+.dg-photo .plate{fill:none;stroke:#7698ff;stroke-opacity:.55;stroke-width:1}
+.dg-photo .chrome{fill:#2f3c58;stroke:#93a5c9;stroke-width:1.2}
+
+/* --- 빛 / 액체 --- */
+.dg-photo .beam{fill:#ffdc8c;opacity:.72}
+.dg-photo .ray{fill:#ffe08a;transform-box:fill-box;transform-origin:50% 50%}
+.dg-photo .dev{fill:#8fb2ff;opacity:.9;transform-box:fill-box;transform-origin:50% 50%}
+.dg-photo .drop{fill:#ffd166;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.dg-photo .reveal{fill:#6ff0e0}
+
+/* --- 글자 (전부 14px 이상 = 325px 렌더에서 7.1px 이상) --- */
+.dg-photo .lay{font-size:15px;font-weight:600;text-anchor:middle}
+.dg-photo .lay-d{fill:#0b1424}
+.dg-photo .lay-l{fill:#eaf1ff}
+.dg-photo .hd{font-size:14px;font-weight:600;fill:#ffd166;text-anchor:middle}
+.dg-photo .hd-b{fill:#a8c2ff}
+.dg-photo .mlab{font-size:14px;font-weight:700;fill:#dbe6ff;text-anchor:middle}
+.dg-photo .ttl{font-size:16px;font-weight:700;fill:#edf3ff;text-anchor:middle}
+.dg-photo .sub{font-size:14px;fill:#a6b4d0;text-anchor:middle}
+.dg-photo .flow{fill:none;stroke:#5f7099;stroke-width:2.4;stroke-linecap:round}
+.dg-photo .flow-h{fill:#5f7099}
+
+/* --- ① 감광액이 중앙에서 바깥으로 퍼진다 --- */
+.dg-photo .pr-spread{transform-box:fill-box;transform-origin:50% 100%;animation:dgPhotoSpread 6s ease-in-out infinite}
+@keyframes dgPhotoSpread{0%,11%{transform:scaleX(0)}26%,100%{transform:scaleX(1)}}
+.dg-photo .pr-lab{animation:dgPhotoLab 6s linear infinite}
+@keyframes dgPhotoLab{0%,20%{opacity:0}30%,100%{opacity:1}}
+.dg-photo .drop{animation:dgPhotoDrop 6s ease-in infinite}
+@keyframes dgPhotoDrop{0%{transform:translateY(0);opacity:0}3%{opacity:1}11%{transform:translateY(50px);opacity:1}14%,100%{transform:translateY(50px);opacity:0}}
+
+/* --- ② 빛: 크롬에 막히는 광자(rb) vs 창을 통과하는 광자(rp) --- */
+.dg-photo .rb{animation:dgPhotoRayB 1.5s linear infinite}
+@keyframes dgPhotoRayB{0%{transform:translateY(0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateY(22px);opacity:0}}
+.dg-photo .rp{animation:dgPhotoRayP 1.5s linear infinite}
+@keyframes dgPhotoRayP{0%{transform:translateY(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(56px);opacity:0}}
+.dg-photo .exp-in{animation:dgPhotoExpose 6s linear infinite}
+@keyframes dgPhotoExpose{0%,30%{opacity:0}44%,100%{opacity:1}}
+
+/* --- ③ 현상액이 내려오고, 빛 받은 PR이 아래로 녹아 사라진다 --- */
+.dg-photo .dev{animation:dgPhotoDev 1.5s linear infinite}
+@keyframes dgPhotoDev{0%{transform:translateY(0);opacity:0}12%{opacity:.9}86%{opacity:.9}100%{transform:translateY(54px);opacity:0}}
+.dg-photo .wash{opacity:0;transform-box:fill-box;transform-origin:50% 100%;animation:dgPhotoWash 6s ease-in-out infinite}
+@keyframes dgPhotoWash{0%,52%{transform:scaleY(1);opacity:1}70%,100%{transform:scaleY(0);opacity:0}}
+.dg-photo .reveal{animation:dgPhotoReveal 6s linear infinite}
+@keyframes dgPhotoReveal{0%,58%{opacity:0}74%,100%{opacity:1}}
+
+/* --- 지연 시간 --- */
+.dg-photo .dl1{animation-delay:-.10s}
+.dg-photo .dl2{animation-delay:-.25s}
+.dg-photo .dl3{animation-delay:-.40s}
+.dg-photo .dl4{animation-delay:-.55s}
+.dg-photo .dl5{animation-delay:-.70s}
+.dg-photo .dl6{animation-delay:-.85s}
+.dg-photo .dl7{animation-delay:-1.00s}
+.dg-photo .dl8{animation-delay:-1.20s}
+
+/* --- 애니메이션을 꺼도 3단계 완성 상태가 그대로 보인다 --- */
+@media (prefers-reduced-motion:reduce){
+  .dg-photo *{animation:none!important}
+  .dg-photo .rb{transform:translateY(22px)}
+  .dg-photo .rp{transform:translateY(56px)}
+  .dg-photo .dev{transform:translateY(30px)}
+  .dg-photo .drop{opacity:0}
+  .dg-photo .pr-spread{transform:none}
+  .dg-photo .pr-lab{opacity:1}
+  .dg-photo .wash{opacity:0}
+  .dg-photo .reveal{opacity:1}
+}
+
+.dg-etch{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.dg-etch text{font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+
+/* ---- 판/타이포 ---- */
+.dg-etch .panel{fill:#101c30;stroke:#2b3a5d;stroke-width:1}
+.dg-etch .ttl{font-size:18px;font-weight:700}
+.dg-etch .ttl-ok{fill:#52e5d2}
+.dg-etch .ttl-bad{fill:#ff709f}
+.dg-etch .out{font-size:15px;font-weight:600}
+.dg-etch .out-ok{fill:#9fe8dd}
+.dg-etch .out-bad{fill:#ffb0c8}
+.dg-etch .note{font-size:16px;font-weight:700;fill:#edf3ff}
+.dg-etch .note-bad{fill:#ffc0d4}
+.dg-etch .lg{font-size:14px;fill:#c3d1ec}
+
+/* ---- 층 ---- */
+.dg-etch .liq{fill:#3a63b8}
+.dg-etch .liqtop{fill:none;stroke:#9dbcff;stroke-width:1.4;opacity:.85}
+.dg-etch .base{fill:#46607e;stroke:#7f9bbf;stroke-width:1.2}
+.dg-etch .film{fill:#2bb0a3;stroke:#6ff0e0;stroke-width:1.2}
+.dg-etch .res{fill:#f0bf55;stroke:#ffe3a3;stroke-width:1.2}
+
+/* ---- 식각된 구멍: 둥근 캡 선의 굵기 = 등방성 식각 반경 x2 ---- */
+.dg-etch .cav{fill:none;stroke-linecap:round}
+.dg-etch .cav-f{stroke:#3a63b8}   /* 구멍을 채운 식각액 */
+.dg-etch .cav-o{stroke:#9dbcff}   /* 식각 진행 경계선(뒤에 깔려 테두리만 보임) */
+
+/* ---- 보조 표시 ---- */
+.dg-etch .dline{stroke:#6ff0e0;stroke-width:1.2;stroke-dasharray:5 4;opacity:.6}
+.dg-etch .medge{stroke:#edf3ff;stroke-width:1.2;stroke-dasharray:3 3;opacity:.6}
+.dg-etch .lead{fill:none;stroke:#dce8ff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dg-etch .leadhead{fill:#dce8ff}
+.dg-etch .noteB .lead{stroke:#ffc0d4}
+.dg-etch .noteB .leadhead{fill:#ffc0d4}
+.dg-etch .gone{fill:none;stroke:#ff709f;stroke-width:1.8;stroke-dasharray:4 3}
+.dg-etch .xmk{fill:none;stroke:#ff709f;stroke-width:2.6;stroke-linecap:round}
+.dg-etch .ico{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg-etch .ico-ok{stroke:#52e5d2}
+.dg-etch .ico-bad{stroke:#ff709f}
+
+/* ---- 범례 견본 ---- */
+.dg-etch .sw-liq{fill:#3a63b8;stroke:#9dbcff;stroke-width:1}
+.dg-etch .sw-res{fill:#f0bf55;stroke:#ffe3a3;stroke-width:1}
+.dg-etch .sw-film{fill:#2bb0a3;stroke:#6ff0e0;stroke-width:1}
+.dg-etch .sw-base{fill:#46607e;stroke:#7f9bbf;stroke-width:1}
+
+/* ---- 애니메이션: CSS 기본값 = 최종 상태(모션 꺼져도 그림이 완성됨) ---- */
+.dg-etch .a-o{stroke-width:47;animation:dgEtchAo 8s linear infinite}
+.dg-etch .a-f{stroke-width:44;animation:dgEtchAf 8s linear infinite}
+.dg-etch .b-o{stroke-width:87;animation:dgEtchBo 8s linear infinite}
+.dg-etch .b-f{stroke-width:84;animation:dgEtchBf 8s linear infinite}
+.dg-etch .cavwrap{opacity:1;animation:dgEtchFade 8s linear infinite}
+.dg-etch .noteA{opacity:1;animation:dgEtchNoteA 8s linear infinite}
+.dg-etch .noteB{opacity:1;animation:dgEtchNoteB 8s linear infinite}
+
+/* 두 패널의 식각 속도는 동일(6%→28%에 반경22, 6%→48%에 반경42). B는 더 오래 담근 것뿐. */
+@keyframes dgEtchAo{0%,6%{stroke-width:0}28%,100%{stroke-width:47}}
+@keyframes dgEtchAf{0%,6%{stroke-width:0}28%,100%{stroke-width:44}}
+@keyframes dgEtchBo{0%,6%{stroke-width:0}48%,100%{stroke-width:87}}
+@keyframes dgEtchBf{0%,6%{stroke-width:0}48%,100%{stroke-width:84}}
+@keyframes dgEtchFade{0%,86%{opacity:1}95%,100%{opacity:0}}
+@keyframes dgEtchNoteA{0%,24%{opacity:0}32%,86%{opacity:1}95%,100%{opacity:0}}
+@keyframes dgEtchNoteB{0%,46%{opacity:0}54%,86%{opacity:1}95%,100%{opacity:0}}
+
+@media (prefers-reduced-motion:reduce){
+  .dg-etch .a-o,.dg-etch .a-f,.dg-etch .b-o,.dg-etch .b-f,
+  .dg-etch .cavwrap,.dg-etch .noteA,.dg-etch .noteB{animation:none}
+}
+
+.dg-deposit{
+  display:block; width:100%; height:auto;
+  font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,"Malgun Gothic",sans-serif;
+  --dep-si:#4a6488; --dep-sie:#6d8ab4;
+  --dep-f1:#8fa7cc; --dep-f2:#b3c6e4; --dep-f3:#d6e2f6;
+  --dep-p:#ffd166; --dep-b:#ff709f;
+  --dep-tx:#edf3ff; --dep-mu:#91a0bf;
+}
+
+/* ---- 텍스트 ---- */
+.dg-deposit .ttl{fill:var(--dep-tx);font-size:17px;font-weight:700}
+.dg-deposit .leg{fill:var(--dep-mu);font-size:13px}
+.dg-deposit .lbl{fill:#cadaf5;font-size:14px}
+.dg-deposit .cap{fill:var(--dep-tx);font-size:15px}
+.dg-deposit .cap2{fill:var(--dep-mu);font-size:14px}
+.dg-deposit .zn{font-size:16px;font-weight:700}
+.dg-deposit .zn-n{fill:var(--dep-p)}
+.dg-deposit .zn-p{fill:var(--dep-b)}
+.dg-deposit .tn{fill:var(--dep-p);font-weight:700}
+.dg-deposit .tp{fill:var(--dep-b);font-weight:700}
+
+/* ---- 판 ---- */
+.dg-deposit .card{fill:#101c33;opacity:.6}
+
+/* ---- 기판 / 박막 ---- */
+.dg-deposit .si{fill:var(--dep-si);stroke:var(--dep-sie);stroke-width:1.5}
+.dg-deposit .film{stroke:#3d5480;stroke-width:1;stroke-linejoin:round}
+.dg-deposit .f1{fill:var(--dep-f1)}
+.dg-deposit .f2{fill:var(--dep-f2)}
+.dg-deposit .f3{fill:var(--dep-f3)}
+
+/* ---- 범례 ---- */
+.dg-deposit .lgd{fill:var(--dep-f3)}
+.dg-deposit .lgf{fill:var(--dep-f2);stroke:#3d5480;stroke-width:1}
+.dg-deposit .swP{fill:var(--dep-p);fill-opacity:.35;stroke:var(--dep-p);stroke-opacity:.7;stroke-width:1}
+.dg-deposit .swB{fill:var(--dep-b);fill-opacity:.35;stroke:var(--dep-b);stroke-opacity:.7;stroke-width:1}
+
+/* ---- 날아오는 경로 ---- */
+.dg-deposit .flux{fill:none;stroke-width:1;stroke-dasharray:2 4;opacity:.2}
+.dg-deposit .fluxA{stroke:var(--dep-f3)}
+.dg-deposit .fluxP{stroke:var(--dep-p)}
+.dg-deposit .fluxB{stroke:var(--dep-b)}
+
+/* ---- 입자 ---- */
+.dg-deposit .atom{fill:var(--dep-f3);opacity:.95;transform-box:fill-box;transform-origin:center}
+.dg-deposit .ion{transform-box:fill-box;transform-origin:center}
+.dg-deposit .ionP{fill:var(--dep-p);stroke:#0d1729;stroke-width:.8}
+.dg-deposit .ionB{fill:var(--dep-b);stroke:#0d1729;stroke-width:.8}
+
+/* ---- 주입층 ---- */
+.dg-deposit .band{opacity:1}
+.dg-deposit .bn{fill:var(--dep-p);fill-opacity:.2;stroke:var(--dep-p);stroke-opacity:.55;stroke-width:1.2}
+.dg-deposit .bp{fill:var(--dep-b);fill-opacity:.2;stroke:var(--dep-b);stroke-opacity:.55;stroke-width:1.2}
+.dg-deposit .divi{stroke:#c3d2ea;stroke-opacity:.55;stroke-width:1.2;stroke-dasharray:3 3}
+.dg-deposit .trk{fill:none;stroke-width:1.6;stroke-dasharray:3 2.5;opacity:.7}
+.dg-deposit .trkP{stroke:var(--dep-p)}
+.dg-deposit .trkB{stroke:var(--dep-b)}
+
+/* ---- 애니메이션 ---- */
+@keyframes dg-deposit-fallA{
+  0%{transform:translateY(-60px);opacity:0}
+  12%{opacity:.95}
+  70%{transform:translateY(-7px);opacity:.95}
+  88%,100%{transform:translateY(0);opacity:0}
+}
+@keyframes dg-deposit-fallB{
+  0%{transform:translateY(-34px);opacity:0}
+  12%{opacity:.95}
+  70%{transform:translateY(-7px);opacity:.95}
+  88%,100%{transform:translateY(0);opacity:0}
+}
+@keyframes dg-deposit-grow2{0%,18%{opacity:0}30%,92%{opacity:1}100%{opacity:0}}
+@keyframes dg-deposit-grow3{0%,52%{opacity:0}64%,92%{opacity:1}100%{opacity:0}}
+@keyframes dg-deposit-shoot{
+  0%{transform:translate(-8px,-86px);opacity:0}
+  6%{opacity:1}
+  40%{transform:translate(-2.2px,-24px)}
+  55%{transform:translate(-.8px,-8px)}
+  72%,90%{transform:translate(0,0);opacity:1}
+  100%{transform:translate(0,0);opacity:0}
+}
+@keyframes dg-deposit-trk{0%,42%{opacity:0}62%,90%{opacity:.7}100%{opacity:0}}
+@keyframes dg-deposit-band{0%,22%{opacity:.32}62%,92%{opacity:1}100%{opacity:.32}}
+
+.dg-deposit .fa{animation:dg-deposit-fallA 2.8s linear infinite backwards}
+.dg-deposit .fb{animation:dg-deposit-fallB 2.8s linear infinite backwards}
+.dg-deposit .a1{animation-delay:0s}
+.dg-deposit .a2{animation-delay:.31s}
+.dg-deposit .a3{animation-delay:.62s}
+.dg-deposit .a4{animation-delay:.93s}
+.dg-deposit .a5{animation-delay:1.24s}
+.dg-deposit .a6{animation-delay:1.55s}
+.dg-deposit .a7{animation-delay:1.86s}
+.dg-deposit .a8{animation-delay:2.17s}
+.dg-deposit .a9{animation-delay:2.48s}
+
+.dg-deposit .f2{animation:dg-deposit-grow2 5.6s linear infinite}
+.dg-deposit .f3{animation:dg-deposit-grow3 5.6s linear infinite}
+
+.dg-deposit .ion{animation:dg-deposit-shoot 4.2s linear infinite backwards}
+.dg-deposit .trk{animation:dg-deposit-trk 4.2s linear infinite backwards}
+.dg-deposit .band{animation:dg-deposit-band 4.2s linear infinite}
+.dg-deposit .i1{animation-delay:0s}
+.dg-deposit .i2{animation-delay:.14s}
+.dg-deposit .i3{animation-delay:.28s}
+.dg-deposit .i4{animation-delay:.42s}
+.dg-deposit .i5{animation-delay:.07s}
+.dg-deposit .i6{animation-delay:.21s}
+.dg-deposit .i7{animation-delay:.35s}
+.dg-deposit .i8{animation-delay:.49s}
+
+@media (prefers-reduced-motion:reduce){
+  .dg-deposit .fa,
+  .dg-deposit .fb,
+  .dg-deposit .f2,
+  .dg-deposit .f3,
+  .dg-deposit .ion,
+  .dg-deposit .trk,
+  .dg-deposit .band{animation:none}
+}
+
+.dg-connect { display: block; width: 100%; height: auto; }
+.dg-connect text { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Malgun Gothic", sans-serif; }
+
+/* 절연막(산화막) 띠 — 밝은 띠는 가로 배선층, 어두운 띠는 비아층 */
+.dg-connect .bandA { fill: #17293f; }
+.dg-connect .bandB { fill: #111f33; }
+.dg-connect .frame { fill: none; stroke: #2b3a5d; stroke-width: 1.2; }
+
+/* 실리콘 기판과 트랜지스터 */
+.dg-connect .sub  { fill: #3f567a; stroke: #55719b; stroke-width: 1.2; }
+.dg-connect .sd   { fill: #6d8fbb; }
+.dg-connect .gate { fill: #c3cfe4; }
+.dg-connect .gox  { fill: #111f33; }   /* 게이트 산화막 = 절연막이므로 어두운 띠와 같은 색 */
+
+/* 금속 */
+.dg-connect .cu { fill: #e2a26c; }   /* 구리 배선 + 비아 */
+.dg-connect .w  { fill: #aab8d2; }   /* 텅스텐 콘택트 플러그 */
+
+/* 라벨 */
+.dg-connect .lbl  { fill: #edf3ff; font-size: 15px; }
+.dg-connect .note { fill: #9dadcb; font-size: 14px; }
+.dg-connect .lead { stroke: #7b8cad; stroke-width: 1.4; }
+
+/* 전류 */
+.dg-connect .lg    { stroke: #52e5d2; stroke-width: 5; stroke-linecap: round; }
+.dg-connect .arw   { fill: #52e5d2; }
+/* 흐름선 위에 얹는 방향 화살표: 선과 같은 색이면 묻히므로 밝게 채우고 어둡게 테두리 */
+.dg-connect .arw.on{ fill: #eafdf9; stroke: #0b1424; stroke-width: 1.2; stroke-linejoin: round; }
+.dg-connect .route { fill: none; stroke: #52e5d2; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; opacity: .2; }
+.dg-connect .flow {
+  fill: none;
+  stroke: #52e5d2;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 46 174;
+  filter: drop-shadow(0 0 4px rgba(82, 229, 210, .6));
+  animation: dg-connect-flow 2.2s linear infinite;
+}
+
+@keyframes dg-connect-flow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -220; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-connect .flow { animation: none; stroke-dasharray: none; opacity: .9; }
+}
+
+.dg-eds{
+  display:block; width:100%; height:auto;
+  --line:#2b3a5d; --text:#edf3ff; --muted:#91a0bf;
+  --cyan:#52e5d2; --yellow:#ffd166; --pink:#ff709f; --blue:#7698ff;
+}
+.dg-eds text{
+  font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,sans-serif;
+  fill:var(--text);
+}
+.dg-eds .h{font-size:15px;font-weight:700;}
+.dg-eds .lb{font-size:15px;}
+.dg-eds .lbd{font-size:15px;font-weight:700;fill:#0d1729;}
+.dg-eds .sm{font-size:14px;fill:var(--muted);}
+
+/* ── 웨이퍼 평면도 ───────────────────────────── */
+.dg-eds .wafer{fill:#16233d;stroke:#7f97bd;stroke-width:2;}
+.dg-eds .dies-u rect,
+.dg-eds .pend{fill:#25334f;stroke:#566a91;stroke-width:1.2;stroke-dasharray:3 2;}
+.dg-eds .dies-g rect{fill:#1c6a66;stroke:var(--cyan);stroke-width:1.2;}
+.dg-eds .dies-b rect{fill:#5d2039;stroke:var(--pink);stroke-width:1.2;}
+.dg-eds .ink{fill:var(--pink);}
+.dg-eds .pend{opacity:0;}                 /* 기본=검사 끝난 상태 */
+.dg-eds .probe{
+  fill:var(--yellow);fill-opacity:.16;stroke:var(--yellow);stroke-width:2.4;
+  transform:translateX(54px);            /* 기본=마지막 칸 */
+  transform-box:fill-box;transform-origin:center;
+  animation:eds-step 8s linear infinite;
+}
+.dg-eds .zoom{fill:none;stroke:#41558a;stroke-width:1.4;stroke-dasharray:4 3;}
+.dg-eds .ldr{fill:none;stroke:var(--muted);stroke-width:1.2;}
+.dg-eds .ldot{fill:var(--muted);}
+.dg-eds .sep{stroke:var(--line);stroke-width:1.2;}
+.dg-eds .lg-probe{fill:var(--yellow);fill-opacity:.16;stroke:var(--yellow);stroke-width:2;}
+
+/* ── 프로브 접촉 단면도 ─────────────────────── */
+.dg-eds .card{fill:#9aa6bd;stroke:#cdd6e6;stroke-width:1;}
+.dg-eds .needle{stroke:#e2e9f7;stroke-width:2.6;stroke-linecap:round;fill:none;}
+.dg-eds .pad{fill:#dfe6f4;stroke:#aab7cf;stroke-width:1;}
+.dg-eds .diel{fill:#1d6a6d;stroke:var(--cyan);stroke-width:1.2;}
+.dg-eds .si{fill:#4a6488;stroke:#7d94b8;stroke-width:1.2;}
+.dg-eds .dot-in{fill:var(--yellow);}
+.dg-eds .dot-out{fill:var(--blue);}
+.dg-eds .head{
+  transform-box:fill-box;transform-origin:center;
+  animation:eds-touch 2s ease-in-out infinite;   /* 기본=바늘이 닿은 상태 */
+}
+.dg-eds .sig-in{
+  fill:var(--yellow);
+  transform:translate(12px,44px);transform-box:fill-box;transform-origin:center;
+  animation:eds-sig-in 2s linear infinite;
+}
+.dg-eds .sig-out{
+  fill:var(--blue);
+  transform:translate(12px,-44px);transform-box:fill-box;transform-origin:center;
+  animation:eds-sig-out 2s linear infinite;
+}
+
+/* ── 애니메이션 ─────────────────────────────── */
+/* 프로브 카드가 한 칸(18px)씩 오른쪽으로 이동, 8초에 4칸 */
+@keyframes eds-step{
+  0%,22%   {transform:translateX(0);}
+  25%,47%  {transform:translateX(18px);}
+  50%,72%  {transform:translateX(36px);}
+  75%,100% {transform:translateX(54px);}
+}
+/* 각 칸의 판정이 나오는 순간 '미검사' 덮개가 사라진다 */
+@keyframes eds-rv1{0%,17.9%{opacity:1}18%,100%{opacity:0}}
+@keyframes eds-rv2{0%,42.9%{opacity:1}43%,100%{opacity:0}}
+@keyframes eds-rv3{0%,67.9%{opacity:1}68%,100%{opacity:0}}
+@keyframes eds-rv4{0%,92.9%{opacity:1}93%,100%{opacity:0}}
+.dg-eds .p1{animation:eds-rv1 8s linear infinite;}
+.dg-eds .p2{animation:eds-rv2 8s linear infinite;}
+.dg-eds .p3{animation:eds-rv3 8s linear infinite;}
+.dg-eds .p4{animation:eds-rv4 8s linear infinite;}
+/* 카드+바늘이 내려와 패드에 닿았다가 떨어진다 (한 칸당 2초) */
+@keyframes eds-touch{
+  0%       {transform:translateY(-7px);}
+  14%,86%  {transform:translateY(0);}
+  100%     {transform:translateY(-7px);}
+}
+/* 왼쪽 바늘로 전기 신호가 내려간다 */
+@keyframes eds-sig-in{
+  0%,18%   {transform:translate(0,0);opacity:0;}
+  22%      {transform:translate(0,0);opacity:1;}
+  46%      {transform:translate(12px,44px);opacity:1;}
+  54%,100% {transform:translate(12px,44px);opacity:0;}
+}
+/* 오른쪽 바늘로 응답이 올라온다 */
+@keyframes eds-sig-out{
+  0%,48%   {transform:translate(0,0);opacity:0;}
+  54%      {transform:translate(0,0);opacity:1;}
+  78%      {transform:translate(12px,-44px);opacity:1;}
+  86%,100% {transform:translate(12px,-44px);opacity:0;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  /* 애니메이션을 꺼도 '검사가 끝난 웨이퍼 + 바늘이 닿은 단면'이 그대로 남는다 */
+  .dg-eds .probe,.dg-eds .pend,.dg-eds .head,
+  .dg-eds .sig-in,.dg-eds .sig-out{animation:none;}
+}
+
+.dg-pack{
+  width:100%; height:auto; display:block;
+  font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  font-weight:600;
+}
+
+/* --- 절단선: 기본(=애니메이션 없음) 상태가 '이미 다 잘린' 최종 모습 --- */
+.dg-pack .cut{stroke:#52e5d2;stroke-width:2;stroke-dasharray:100 120;stroke-dashoffset:0}
+.dg-pack .cutH{animation:packCutH 10s linear infinite}
+.dg-pack .cutV{animation:packCutV 10s linear infinite}
+
+/* --- 톱날: 애니메이션 중에만 등장하는 '도구' --- */
+.dg-pack .blade{opacity:0;transform-box:fill-box;transform-origin:center}
+.dg-pack .bladeH{transform:translateX(172px);animation:packBladeH 10s linear infinite}
+.dg-pack .bladeV{transform:translateY(174px);animation:packBladeV 10s linear infinite}
+
+/* --- 떼어낸 낱개 다이 (기본값 = 떨어져 나온 최종 위치) --- */
+.dg-pack .fly{
+  transform-box:fill-box; transform-origin:center;
+  transform:translate(73px,-28px) scale(1.5);
+  animation:packFly 10s ease-in-out infinite;
+}
+.dg-pack .flyLb{animation:packFlyLb 10s linear infinite}
+
+/* --- 다이 부착 (기본값 = 리드 프레임 위에 안착) --- */
+.dg-pack .drop{transform-box:fill-box;transform-origin:center;animation:packDrop 10s ease-in infinite}
+
+/* --- 와이어 본딩 (기본값 = 금선 완성) --- */
+.dg-pack .wire{stroke-dasharray:100 120;stroke-dashoffset:0}
+.dg-pack .wA{animation:packWireA 10s linear infinite}
+.dg-pack .wB{animation:packWireB 10s linear infinite}
+.dg-pack .wireLb{animation:packWireLb 10s linear infinite}
+
+/* --- 몰딩 (기본값 = 수지가 다 채워진 상태) --- */
+.dg-pack .mold{
+  opacity:.7; transform-box:fill-box; transform-origin:50% 100%;
+  animation:packMold 10s ease-out infinite;
+}
+.dg-pack .xray{animation:packXray 10s linear infinite}
+.dg-pack .moldLb{animation:packMoldLb 10s linear infinite}
+
+/* 0~18% 가로 스트리트 절단 · 18~34% 세로 스트리트 절단
+   36~48% 다이 분리 · 48~58% 다이 부착 · 58~74% 와이어 본딩 · 76~88% 몰딩 */
+@keyframes packCutH{0%,2%{stroke-dashoffset:100}18%,100%{stroke-dashoffset:0}}
+@keyframes packCutV{0%,18%{stroke-dashoffset:100}34%,100%{stroke-dashoffset:0}}
+
+@keyframes packBladeH{
+  0%,2%{opacity:0;transform:translateX(48px)}
+  4%,16%{opacity:1}
+  18%,100%{opacity:0;transform:translateX(172px)}
+}
+@keyframes packBladeV{
+  0%,18%{opacity:0;transform:translateY(50px)}
+  20%,32%{opacity:1}
+  34%,100%{opacity:0;transform:translateY(174px)}
+}
+
+@keyframes packFly{
+  0%,36%{transform:translate(0,0) scale(1)}
+  48%,100%{transform:translate(73px,-28px) scale(1.5)}
+}
+@keyframes packFlyLb{0%,42%{opacity:0}48%,100%{opacity:1}}
+
+@keyframes packDrop{
+  0%,48%{opacity:0;transform:translateY(-56px)}
+  50%{opacity:1}
+  58%,100%{opacity:1;transform:translateY(0)}
+}
+
+@keyframes packWireA{0%,58%{stroke-dashoffset:100}68%,100%{stroke-dashoffset:0}}
+@keyframes packWireB{0%,64%{stroke-dashoffset:100}74%,100%{stroke-dashoffset:0}}
+@keyframes packWireLb{0%,70%{opacity:0}76%,100%{opacity:1}}
+
+@keyframes packMold{
+  0%,76%{opacity:0;transform:scaleY(0)}
+  78%{opacity:.7}
+  88%,100%{opacity:.7;transform:scaleY(1)}
+}
+@keyframes packMoldLb{0%,78%{opacity:0}86%,100%{opacity:1}}
+@keyframes packXray{0%,80%{opacity:0}88%,100%{opacity:1}}
+
+@media (prefers-reduced-motion:reduce){
+  .dg-pack *{animation:none!important}
+}
+/* 좁은 화면에서 단면도가 뭉개지지 않게: 최소 폭을 주고 좌우 스크롤 */
+.brief-art .dg-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+@media(max-width:560px){
+  .brief-deep{padding:11px}
+  .brief-art{padding:9px 9px 7px}
+  .brief-art .dg{min-width:480px}
+  .brief-art figcaption:after{content:' · 좌우로 밀어서 볼 수 있어';color:var(--yellow)}
+}
+/* 스크롤 컨테이너의 자동 최소 크기는 min-content 라, 안쪽 SVG 의 min-width 가
+   모달 폭까지 밀어 올린다. 연쇄를 0 으로 끊어 카드가 뷰포트를 넘지 않게 한다. */
+.brief-card,.brief-body,.brief-body>*,.brief-deep,.brief-deep>*,.brief-art .dg-scroll{min-width:0}
+.brief-card{width:auto;max-width:min(680px,100%)}
+/* 흐름도 노드를 클릭 가능한 버튼으로 (pmCycle 이 border-color·box-shadow·transform 을
+   계속 애니메이션하므로, 호버·포커스 표시는 애니메이션이 건드리지 않는 outline 으로 준다) */
+.pm-node{appearance:none;font:inherit;color:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pm-node:hover{outline:2px solid var(--cyan);outline-offset:2px}
+.pm-node:hover .pm-name{color:var(--cyan)}
+.pm-node:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.pm-name{transition:color .16s ease}
+.pm-hint{order:3;flex:1 0 100%;margin:-6px 0 0;text-align:left;font-size:10px;letter-spacing:.5px;color:var(--muted)}
+.pm-hint b{color:var(--cyan);font-weight:normal}
+@media(prefers-reduced-motion:reduce){.pm-name{transition:none}}
