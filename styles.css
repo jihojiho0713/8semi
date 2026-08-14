@@ -28,7 +28,7 @@ body{margin:0;min-height:100vh;background:radial-gradient(circle at 80% 5%,#1c31
 .panel-heading{display:flex;justify-content:space-between}
 .panel-heading h2{font:700 32px Syne;margin:8px 0}
 .stage-no{font:800 52px Syne;color:#29395d}
-.stage-desc{max-width:760px;color:var(--muted);font-size:13px;line-height:1.8}
+
 .game-area{min-height:270px;margin-top:25px;display:grid;place-items:center}
 .feedback{min-height:29px;text-align:center;color:var(--yellow);font-size:12px;margin-top:8px}
 .next-btn{display:block;margin:4px auto}
@@ -500,14 +500,14 @@ body.brief-lock{overflow:hidden}
 .brief-real{padding:13px 15px;border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;background:#ffd1660f}
 .brief-real-tag{font-size:9px;letter-spacing:2px;color:var(--yellow);font-weight:bold}
 .brief-real p{margin:6px 0 0;font-size:12px;line-height:1.75;color:#c9d6ef}
-.brief-how h3{font:700 15px Syne;margin:0 0 9px;color:var(--text)}
-.brief-how ol{margin:0;padding:0;list-style:none;counter-reset:bh;display:flex;flex-direction:column;gap:7px}
-.brief-how li{counter-increment:bh;display:grid;grid-template-columns:20px 1fr;gap:6px;font-size:12.5px;line-height:1.7;color:var(--muted)}
-.brief-how li:before{content:counter(bh) ".";color:var(--cyan);font-weight:bold}
-.brief-goal{padding:13px 15px;border:1px solid #2f4368;border-radius:8px;background:#101a2f;display:flex;flex-direction:column;gap:7px}
-.brief-goal p{margin:0;font-size:12px;line-height:1.7;color:var(--muted)}
-.brief-goal b{color:var(--cyan);margin-right:7px}
-.brief-tip b{color:var(--yellow)}
+
+
+
+
+
+
+
+
 .brief-foot{padding:16px 26px 22px;border-top:1px solid var(--line);display:flex;justify-content:center}
 .brief-foot .primary-btn{margin-top:0;min-width:220px}
 .game-idle{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--muted);font-size:12px}
@@ -1242,8 +1242,8 @@ body.brief-lock{overflow:hidden}
    같은 폭으로 가운데 정렬된다. 게임별 mission-box 폭(560~650px)이 제각각이라
    컬럼 폭에 맞춰 덮어쓴다(.game-panel .game-area 로 특이도만 올리고 !important 는 쓰지 않는다). */
 .game-panel{--col:min(660px,100%)}
-.panel-heading,.stage-desc,.visual-guide,.game-area{width:var(--col);margin-left:auto;margin-right:auto}
-.stage-desc{max-width:none}
+.panel-heading,.visual-guide,.game-area{width:var(--col);margin-left:auto;margin-right:auto}
+
 .visual-guide{max-width:none}
 .game-panel .game-area .mission-box{width:100%}
 /* 게임 중 목차 카드. 시작 화면 흐름도(.pm-node)와 같은 생김새지만,현재 공정을 표시해야 하므로 순차 하이라이트 애니메이션(pmCycle)은 쓰지 않는다.
@@ -1275,3 +1275,22 @@ body.brief-lock{overflow:hidden}
 /* 진행 중일 때만 보이는 초기화 버튼 (시작 버튼은 "이어서 하기"로 바뀐다) */
 .start-reset{margin-top:14px}
 .start-reset.hidden{display:none}
+/* 공정 흐름 가이드 글자가 10px 이라 읽기 어려웠다. 아이콘과 함께 키운다.
+   (max-width:700px 블록 뒤에 오므로 모바일 값도 여기서 다시 지정한다) */
+.visual-step{font-size:13px;gap:10px}
+.visual-label{max-width:90px;line-height:1.4}
+.visual-icon{width:54px;height:54px;font-size:26px}
+.visual-arrow{margin:0 14px;font-size:20px}
+@media(max-width:700px){
+  .visual-step{font-size:12px;gap:7px}
+  .visual-label{max-width:72px;font-size:12px}
+  .visual-icon{width:44px;height:44px;font-size:21px}
+  .visual-arrow{margin:0 6px;font-size:16px}
+}
+/* 흐름 가이드 각 단계를 아이콘 위 / 라벨 아래 2줄로. 시작 화면 공정 카드와 같은 배치. */
+.visual-step{flex-direction:column;gap:7px}
+.visual-label{max-width:none;white-space:nowrap}
+@media(max-width:700px){
+  .visual-step{gap:6px}
+  .visual-label{max-width:none}
+}
