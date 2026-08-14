@@ -91,7 +91,17 @@ art:{svg:"<svg class=\"dg dg-pack\" viewBox=\"0 0 640 210\" xmlns=\"http://www.w
 let current=0,score=0,states=Array(8).fill(false),timer=null,quizTimer=null,quizPassed=Array(3).fill(false),quizFor=null;
 const $=id=>document.getElementById(id);
 // 화면 전환. 햄버거 버튼은 게임 화면에서만 쓸모가 있으니 같이 토글한다.
-const show=id=>{['startScreen','gameScreen','quizScreen','finishScreen'].forEach(x=>$(x).classList.toggle('hidden',x!==id));$('navBtn').classList.toggle('hidden',id!=='gameScreen');$('startBtnTop').classList.toggle('hidden',id!=='startScreen');closeNav()};
+const show=id=>{['startScreen','gameScreen','quizScreen','finishScreen'].forEach(x=>$(x).classList.toggle('hidden',x!==id));$('navBtn').classList.toggle('hidden',id!=='gameScreen');$('startBtnTop').classList.toggle('hidden',id!=='startScreen');if(id==='startScreen')refreshStart();closeNav()};
+// 로고나 서랍으로 시작 화면에 돌아와도 진행 상황이 남아 있다.
+// 그 상태에서 시작 버튼을 누르면 초기화되지 않고 하던 공정으로 돌아가야 한다.
+function hasProgress(){return score>0||states.some(Boolean)}
+function refreshStart(){
+  const p=hasProgress(),label=p?'이어서 하기':'공정 투어 시작';
+  $('startBtn').innerHTML=`${label} <span>→</span>`;
+  $('startBtnTop').innerHTML=`${label} <span>→</span>`;
+  $('resetBtn').classList.toggle('hidden',!p);
+}
+function resume(){if(!hasProgress()){start();return}show('gameScreen');render()}
 // 미니게임이 등록한 정리 함수. 스테이지를 떠날 때 인터벌·rAF·전역 리스너를 모두 되돌린다.
 let cleanups=[];
 function onCleanup(fn){cleanups.push(fn)}
@@ -796,7 +806,7 @@ arm();
 function nextStage(){if(!states[current]){ $('feedback').textContent='먼저 이 공정의 미션을 성공해야 다음으로 갈 수 있어.';return}if(current===7){finish();return}if(current===2||current===5){quizFor=current;showQuiz();return}current++;render()}
 function showQuiz(){closeBrief();runCleanups();clearTimeout(quizTimer);const quizStage=quizFor;const q=quizzes[quizStage===2?1:2];$('quizQuestion').textContent=q.q;$('quizFeedback').textContent='';$('quizOptions').innerHTML=q.a.map((x,i)=>`<button class="quiz-option">${String.fromCharCode(65+i)}. ${x}</button>`).join('');document.querySelectorAll('.quiz-option').forEach((b,i)=>b.onclick=()=>{if(i!==q.c){$('quizFeedback').textContent='다시 생각해 봐! 공정 설명을 떠올려 봐.';return}if(!quizPassed[quizStage===2?1:2]){score+=50;quizPassed[quizStage===2?1:2]=true;$('score').textContent=score}$('quizFeedback').textContent='정답! +50점';document.querySelectorAll('.quiz-option').forEach(option=>option.disabled=true);quizTimer=setTimeout(()=>{current=quizStage+1;show('gameScreen');render()},500)});show('quizScreen')}
 function finish(){closeBrief();runCleanups();clearInterval(timer);$('finalScore').textContent=score;$('finishSummary').textContent=`성공 ${states.filter(Boolean).length}개 · 아직 완료하지 않은 공정 ${states.filter(x=>!x).length}개 · 메뉴에서 언제든 다시 도전할 수 있어.`;$('stageCount').textContent='MISSION REPORT';show('finishScreen')}
-$('startBtn').onclick=start;$('startBtnTop').onclick=start;$('restartBtn').onclick=start;$('nextBtn').onclick=nextStage;
+$('startBtn').onclick=resume;$('startBtnTop').onclick=resume;$('resetBtn').onclick=start;$('restartBtn').onclick=start;$('nextBtn').onclick=nextStage;
 // 로고를 누르면 진행 중인 미션을 정리하고 시작 화면으로. 점수와 클리어 기록은 유지된다.
 $('homeBtn').onclick=()=>{closeBrief();runCleanups();clearInterval(timer);clearTimeout(quizTimer);$('stageCount').textContent='';show('startScreen')};
 $('briefStart').onclick=briefAction;$('briefClose').onclick=closeBrief;$('briefAgain').onclick=()=>openBrief();
