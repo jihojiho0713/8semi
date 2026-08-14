@@ -91,13 +91,16 @@ art:{svg:"<svg class=\"dg dg-pack\" viewBox=\"0 0 640 210\" xmlns=\"http://www.w
 let current=0,score=0,states=Array(8).fill(false),timer=null,quizTimer=null,quizPassed=Array(3).fill(false),quizFor=null;
 const $=id=>document.getElementById(id);
 // 화면 전환. 햄버거 버튼은 게임 화면에서만 쓸모가 있으니 같이 토글한다.
-const show=id=>{['startScreen','gameScreen','quizScreen','finishScreen'].forEach(x=>$(x).classList.toggle('hidden',x!==id));$('navBtn').classList.toggle('hidden',id!=='gameScreen');closeNav()};
+const show=id=>{['startScreen','gameScreen','quizScreen','finishScreen'].forEach(x=>$(x).classList.toggle('hidden',x!==id));$('navBtn').classList.toggle('hidden',id!=='gameScreen');$('startBtnTop').classList.toggle('hidden',id!=='startScreen');closeNav()};
 // 미니게임이 등록한 정리 함수. 스테이지를 떠날 때 인터벌·rAF·전역 리스너를 모두 되돌린다.
 let cleanups=[];
 function onCleanup(fn){cleanups.push(fn)}
 function runCleanups(){const list=cleanups;cleanups=[];list.forEach(fn=>{try{fn()}catch(e){console.warn('cleanup 실패',e)}})}
+// 시작 화면 흐름도의 아이콘 SVG 를 그대로 재사용한다. 마크업을 두 벌 관리하지 않기 위해
+// DOM 에서 한 번 읽어 캐시한다. (하단 초기화 블록에서 채운다)
+const stageIcons=[];
 function setupList(){
-  $('stageList').innerHTML=stages.map((s,i)=>`<div class="stage-item ${i===current?'active ':''}${states[i]?'done':''}" onclick="goStage(${i})"><span class="stage-num">${states[i]?'✓':processVisuals[i][1][0]}</span><span>${s.name}</span></div>`).join('');
+  $('stageList').innerHTML=stages.map((s,i)=>`<button class="stage-card ${i<6?'front':'back'} ${i===current?'on ':''}${states[i]?'done':''}" type="button" data-i="${i}"><span class="pm-num">${String(i+1).padStart(2,'0')}</span>${stageIcons[i]||''}<span class="pm-name">${s.name}</span><span class="pm-tag">${states[i]?'✓ 완료':s.tag}</span></button>`).join('');
   // 모바일 햄버거 메뉴용 목록. 좁은 화면에서는 사이드바 대신 이쪽을 쓴다.
   $('navList').innerHTML=stages.map((s,i)=>`<button class="nav-item ${i===current?'nav-on ':''}${states[i]?'nav-done':''}" type="button" data-i="${i}"><span class="nav-num">${String(i+1).padStart(2,'0')}</span><span class="nav-name">${s.name}</span><span class="nav-state">${states[i]?'✓ 완료':i===current?'진행 중':''}</span></button>`).join('');
 }
@@ -793,12 +796,16 @@ arm();
 function nextStage(){if(!states[current]){ $('feedback').textContent='먼저 이 공정의 미션을 성공해야 다음으로 갈 수 있어.';return}if(current===7){finish();return}if(current===2||current===5){quizFor=current;showQuiz();return}current++;render()}
 function showQuiz(){closeBrief();runCleanups();clearTimeout(quizTimer);const quizStage=quizFor;const q=quizzes[quizStage===2?1:2];$('quizQuestion').textContent=q.q;$('quizFeedback').textContent='';$('quizOptions').innerHTML=q.a.map((x,i)=>`<button class="quiz-option">${String.fromCharCode(65+i)}. ${x}</button>`).join('');document.querySelectorAll('.quiz-option').forEach((b,i)=>b.onclick=()=>{if(i!==q.c){$('quizFeedback').textContent='다시 생각해 봐! 공정 설명을 떠올려 봐.';return}if(!quizPassed[quizStage===2?1:2]){score+=50;quizPassed[quizStage===2?1:2]=true;$('score').textContent=score}$('quizFeedback').textContent='정답! +50점';document.querySelectorAll('.quiz-option').forEach(option=>option.disabled=true);quizTimer=setTimeout(()=>{current=quizStage+1;show('gameScreen');render()},500)});show('quizScreen')}
 function finish(){closeBrief();runCleanups();clearInterval(timer);$('finalScore').textContent=score;$('finishSummary').textContent=`성공 ${states.filter(Boolean).length}개 · 아직 완료하지 않은 공정 ${states.filter(x=>!x).length}개 · 메뉴에서 언제든 다시 도전할 수 있어.`;$('stageCount').textContent='MISSION REPORT';show('finishScreen')}
-$('startBtn').onclick=start;$('restartBtn').onclick=start;$('nextBtn').onclick=nextStage;
+$('startBtn').onclick=start;$('startBtnTop').onclick=start;$('restartBtn').onclick=start;$('nextBtn').onclick=nextStage;
 // 로고를 누르면 진행 중인 미션을 정리하고 시작 화면으로. 점수와 클리어 기록은 유지된다.
 $('homeBtn').onclick=()=>{closeBrief();runCleanups();clearInterval(timer);clearTimeout(quizTimer);$('stageCount').textContent='';show('startScreen')};
 $('briefStart').onclick=briefAction;$('briefClose').onclick=closeBrief;$('briefAgain').onclick=()=>openBrief();
 // 시작 화면 흐름도의 공정을 누르면 해당 브리핑을 미리 열어 준다.
-document.querySelectorAll('.pm-node').forEach(n=>{n.onclick=()=>openBrief(Number(n.dataset.stage),'info')});
+document.querySelectorAll('.pm-node').forEach(n=>{
+  n.onclick=()=>openBrief(Number(n.dataset.stage),'info');
+  stageIcons[Number(n.dataset.stage)]=n.querySelector('.pm-icon').outerHTML;
+});
+$('stageList').onclick=e=>{const b=e.target.closest('.stage-card');if(b)goStage(Number(b.dataset.i))};
 $('navBtn').onclick=()=>navOpen?closeNav():openNav();
 $('navClose').onclick=closeNav;
 $('navHome').onclick=()=>{closeNav();$('homeBtn').click()};

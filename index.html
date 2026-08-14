@@ -13,6 +13,7 @@
       <div class="hud">
         <span id="stageCount"></span>
         <span class="score-chip">SCORE <b id="score">0</b></span>
+        <button class="primary-btn topbar-start" id="startBtnTop" type="button">공정 투어 시작 <span>→</span></button>
         <button class="nav-toggle hidden" id="navBtn" type="button" aria-label="공정 이동 메뉴" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </header>
@@ -21,7 +22,6 @@
       <section id="startScreen" class="screen start-screen">
         <p class="eyebrow">PLAY &amp; LEARN · 반도체 8대 공정</p>
         <h1>반도체 공정,<br><em>게임으로 학습하기</em></h1>
-        <p class="lead">잉곳부터 패키징까지, 서로 다른 8개의 미션으로<br>반도체가 만들어지는 과정을 직접 체험해 봐.</p>
         <button id="startBtn" class="primary-btn">공정 투어 시작 <span>→</span></button>
 
         <div class="process-map">
@@ -92,10 +92,13 @@
         <div class="stage-layout">
           <aside class="stage-list" id="stageList"></aside>
           <section class="game-panel">
-            <div class="panel-heading"><div><p class="eyebrow" id="stageEyebrow"></p><h2 id="stageTitle"></h2></div><span id="stageNo" class="stage-no"></span></div>
+            <div class="panel-heading">
+              <span id="stageNo" class="stage-no"></span>
+              <div class="panel-title"><p class="eyebrow" id="stageEyebrow"></p><h2 id="stageTitle"></h2></div>
+              <button class="sort-btn" id="briefAgain" type="button">◈ 공정 설명 다시 보기</button>
+            </div>
             <p id="stageDesc" class="stage-desc"></p>
             <div id="visualGuide" class="visual-guide"></div>
-            <div class="stage-tools"><button class="sort-btn" id="briefAgain" type="button">◈ 공정 설명 다시 보기</button></div>
             <div id="gameArea" class="game-area"></div>
             <div id="feedback" class="feedback"></div>
             <button id="nextBtn" class="next-btn hidden">다음 공정으로 <span>→</span></button>
