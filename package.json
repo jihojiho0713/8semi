@@ -1,7 +1,7 @@
 {
-  "name": "8semi",
+  "name": "dont-wafer-around",
   "version": "1.0.0",
-  "description": "반도체 8대 공정을 미니게임으로 배우는 웹 게임",
+  "description": "Don't Wafer Around! — 반도체 8대 공정을 미니게임으로 배우는 웹 게임",
   "private": true,
   "scripts": {
     "test": "node test/harness.js"
